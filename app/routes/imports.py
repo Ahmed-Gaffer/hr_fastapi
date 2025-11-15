@@ -7,5 +7,5 @@ router = APIRouter()
 # مسار استيراد الموظفين
 @router.post("/import-employees")
 def import_employees_endpoint():
-    import_employees_from_excel("employees.xlsx")
+    import_employees_from_excel("data/employees.xlsx")
     return JSONResponse({"message": "تم الاستيراد بنجاح"})

@@ -1,0 +1,38 @@
+<!-- صفحة عرض الموظفين باستخدام HTMX -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>قائمة الموظفين</title>
+
+    <!-- HTMX لتحميل البيانات تلقائيًا -->
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+
+    <!-- TailwindCSS لتنسيق احترافي -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 p-10">
+
+    <!-- عنوان الصفحة -->
+    <h1 class="text-2xl mb-4">📋 قائمة الموظفين</h1>
+
+    <!-- زر لتحديث القائمة -->
+    <button 
+        class="mb-4 bg-blue-500 text-white px-4 py-2 rounded"
+        hx-get="/employees/list" 
+        hx-target="#employee-list" 
+        hx-swap="innerHTML">
+        🔄 تحديث القائمة
+    </button>
+
+    <!-- مكان عرض الموظفين -->
+    <div id="employee-list" 
+         hx-get="/employees/list" 
+         hx-trigger="load" 
+         hx-swap="innerHTML">
+        <!-- يتم تحميل القائمة تلقائيًا عند فتح الصفحة -->
+    </div>
+
+</body>
+</html>

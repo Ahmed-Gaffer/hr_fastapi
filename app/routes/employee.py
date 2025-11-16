@@ -1,47 +1,54 @@
-# راوتر خاص بالموظفين
-from fastapi import APIRouter, Form, Depends                    # استيراد الأدوات المطلوبة من FastAPI
-from fastapi.responses import HTMLResponse                      # استيراد نوع الاستجابة HTML
-from sqlmodel import Session, select                            # أدوات التعامل مع قاعدة البيانات
-from app.database import engine                                 # الاتصال بقاعدة البيانات
-from app.models.employee import Employee                        # نموذج الموظف
-from app.dependencies.auth_guard import require_admin           # التحقق من صلاحية المدير
+# app/routes/employees.py
+from fastapi import APIRouter, Depends, HTTPException
+from sqlmodel import Session, select
+from app.database import get_session
+from app.models.employee import Employee
 
-# إنشاء الراوتر الخاص بالموظفين
 router = APIRouter(prefix="/employees", tags=["Employees"])
 
-# دالة لإضافة موظف جديد من HTMX
-@router.post("/add", response_class=HTMLResponse)
-def add_employee_htmx(
-    full_name: str = Form(...),                                 # الاسم الكامل من النموذج
-    title: str = Form(None),                                    # المسمى الوظيفي (اختياري)
-    phone: str = Form(None),                                    # رقم الهاتف (اختياري)
-    status: str = Form("active"),                               # الحالة (افتراضي "active")
-    user=Depends(require_admin)                                 # التحقق من أن المستخدم مدير
-):
-    with Session(engine) as session:                            # فتح جلسة اتصال بقاعدة البيانات
-        emp = Employee(                                         # إنشاء كائن موظف جديد
-            full_name=full_name,
-            title=title,
-            phone=phone,
-            status=status
-        )
-        session.add(emp)                                        # إضافة الموظف للجلسة
-        session.commit()                                        # حفظ التغييرات في قاعدة البيانات
-        session.refresh(emp)                                    # تحديث الكائن بعد الحفظ
-        return f"<span style='color:green'>تم إضافة الموظف: {emp.full_name}</span>"  # إرجاع رسالة نجاح
+# عرض كل الموظفين
+@router.get("/")
+def get_employees(session: Session = Depends(get_session)):
+    employees = session.exec(select(Employee)).all()
+    return employees
 
+# عرض موظف واحد بالـ id
+@router.get("/{employee_id}")
+def get_employee(employee_id: int, session: Session = Depends(get_session)):
+    employee = session.get(Employee, employee_id)
+    if not employee:
+        raise HTTPException(status_code=404, detail="Employee not found")
+    return employee
 
-# دالة تعرض كل الموظفين كـ HTML (لـ HTMX)
-@router.get("/list", response_class=HTMLResponse)
-def list_employees_htmx():
-    with Session(engine) as session:
-        employees = session.exec(select(Employee)).all()  # جلب كل الموظفين
+# إضافة موظف جديد
+@router.post("/")
+def create_employee(employee: Employee, session: Session = Depends(get_session)):
+    session.add(employee)
+    session.commit()
+    session.refresh(employee)
+    return employee
 
-        # بناء HTML بسيط لعرضهم
-        html = "<ul class='space-y-2'>"
+# تعديل بيانات موظف
+@router.put("/{employee_id}")
+def update_employee(employee_id: int, employee_data: Employee, session: Session = Depends(get_session)):
+    employee = session.get(Employee, employee_id)
+    if not employee:
+        raise HTTPException(status_code=404, detail="Employee not found")
+    employee.name = employee_data.name
+    employee.national_id = employee_data.national_id
+    employee.old_code = employee_data.old_code
+    employee.site_id = employee_data.site_id
+    session.add(employee)
+    session.commit()
+    session.refresh(employee)
+    return employee
 
-        for emp in employees:
-            html += f"<li class='p-2 border rounded bg-gray-50'>👤 {emp.full_name} - {emp.title or 'بدون مسمى'}</li>"
-
-        html += "</ul>"
-        return html
+# حذف موظف
+@router.delete("/{employee_id}")
+def delete_employee(employee_id: int, session: Session = Depends(get_session)):
+    employee = session.get(Employee, employee_id)
+    if not employee:
+        raise HTTPException(status_code=404, detail="Employee not found")
+    session.delete(employee)
+    session.commit()
+    return {"detail": "Employee deleted successfully"}

@@ -1,32 +1,13 @@
 # راوتر خاص بالحضور
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import HTMLResponse  # <-- أضف هذا السطر
 from sqlmodel import Session, select
-from app.database import engine
+from app.database import get_session
 from app.models.attendance import Attendance
 from app.models.employee import Employee
-from fastapi.responses import HTMLResponse  # ← استيراد نوع الاستجابة HTML
+from datetime import datetime
 
-# إنشاء الراوتر
-router = APIRouter(prefix="/attendance", tags=["Attendance"])
-
-# دالة لإضافة سجل حضور
-@router.post("/", response_model=Attendance)
-def check_in(att: Attendance):
-    with Session(engine) as session:  # فتح جلسة اتصال بقاعدة البيانات
-        session.add(att)              # إضافة السجل
-        session.commit()              # حفظ التغييرات
-        session.refresh(att)          # تحديث الكائن بعد الحفظ
-        return att                    # إرجاع السجل
-
-# دالة لعرض كل سجلات الحضور
-@router.get("/", response_model=list[Attendance])
-def list_attendance():
-    with Session(engine) as session:
-        return session.exec(select(Attendance)).all()
-
-
-# إنشاء الراوتر
-router = APIRouter(prefix="/attendance", tags=["Attendance"])
+router = APIRouter(prefix="/attendance", tags=["attendance"])
 
 # دالة تعرض الحضور كـ HTML (لـ HTMX)
 @router.get("/list", response_class=HTMLResponse)
@@ -43,3 +24,25 @@ def list_attendance_htmx():
 
         html += "</ul>"
         return html
+
+# دالة لإضافة سجل حضور
+@router.post("/", response_model=Attendance)
+def check_in(att: Attendance, session: Session = Depends(get_session)):
+    session.add(att)
+    session.commit()
+    session.refresh(att)
+    return att
+
+# دالة لعرض كل سجلات الحضور
+@router.get("/", response_model=list[Attendance])
+def list_attendance(session: Session = Depends(get_session)):
+    records = session.exec(select(Attendance)).all()
+    return [
+        {
+            "id": r.id,
+            "employee_name": session.exec(select(Employee).where(Employee.id == r.employee_id)).first().name if r.employee_id else 'N/A',
+            "date": r.date,
+            "status": r.status
+        }
+        for r in records
+    ]

@@ -1,21 +1,21 @@
 # app/routes/employees.py
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import Session, select
 from app.database import get_session
 from app.models.employee import Employee
 
-router = APIRouter(prefix="/employees", tags=["Employees"])
+router = APIRouter(prefix="/employees", tags=["employees"])
 
 # عرض كل الموظفين
-@router.get("/")
+@router.get("/", response_model=list[Employee])
 def get_employees(session: Session = Depends(get_session)):
     employees = session.exec(select(Employee)).all()
     return employees
 
 # عرض موظف واحد بالـ id
-@router.get("/{employee_id}")
+@router.get("/{employee_id}", response_model=Employee)
 def get_employee(employee_id: int, session: Session = Depends(get_session)):
-    employee = session.get(Employee, employee_id)
+    employee = session.exec(select(Employee).where(Employee.id == employee_id)).first()
     if not employee:
         raise HTTPException(status_code=404, detail="Employee not found")
     return employee

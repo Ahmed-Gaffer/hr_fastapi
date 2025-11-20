@@ -2,6 +2,7 @@
 from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import date, datetime
+from sqlalchemy import UniqueConstraint
 
 class Employee(SQLModel, table=True):
     """الموظف (مع Tenant)"""
@@ -36,8 +37,6 @@ class Employee(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     
-    __table_args__ = (
-        {"indexes": [
-            "tenant_id, code",  # فريد ضمن الشركة
-        ]},
-    )
+__table_args__ = (
+    UniqueConstraint("tenant_id", "code", name="uq_tenant_code"),
+)

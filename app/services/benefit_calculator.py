@@ -1,5 +1,5 @@
 from sqlmodel import Session, select
-from app.models.salary_record import SalaryRecord
+from app.models.salary import SalaryRecord
 from app.models.benefit_record import BenefitRecord, BenefitType
 
 class BenefitCalculator:

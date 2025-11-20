@@ -10,7 +10,7 @@ from sqlmodel import Session, select
 from app.models.employee import Employee
 from app.models.site import Site
 from app.models.cost_center import CostCenter
-from app.models.salary_record import SalaryRecord
+from app.models.salary import SalaryRecord
 from app.models.salary_allowance import SalaryAllowance
 
 NORMALIZE_MAP = {

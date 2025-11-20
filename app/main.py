@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from app.routes import tenants, employees, imports
 from fastapi.middleware.cors import CORSMiddleware
+from app.routes import tenants, employees, imports, attendance, reports
 
 app = FastAPI(title="نظام الرواتب الذكي - Nageeah HR")
 
@@ -17,6 +17,8 @@ app.add_middleware(
 app.include_router(tenants.router)
 app.include_router(employees.router)
 app.include_router(imports.router)
+app.include_router(attendance.router)   # ✅ تسجيل راوتر الحضور
+app.include_router(reports.router)      # ✅ تسجيل راوتر التقارير
 
 @app.get("/")
 async def root():

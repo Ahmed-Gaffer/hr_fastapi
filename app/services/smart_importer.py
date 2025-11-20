@@ -1,6 +1,6 @@
 from datetime import datetime, date
 from sqlmodel import Session, select
-from app.models.salary_record import SalaryRecord, PayrollCategory
+from app.models.salary import SalaryRecord, PayrollCategory
 from app.models.employee import Employee
 from app.services.professional_salary_calculator import ProfessionalSalaryCalculator
 

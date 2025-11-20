@@ -1,7 +1,7 @@
 from datetime import datetime
 from sqlmodel import Session, select
 from app.models.employee import Employee
-from app.models.salary_record import SalaryRecord
+from app.models.salary import SalaryRecord
 from app.models.salary_component import SalaryComponent, ComponentType
 from app.models.salary_config import SalaryConfig
 from app.services.tax_engine import compute_tax_for_date

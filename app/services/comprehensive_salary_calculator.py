@@ -1,7 +1,7 @@
 from datetime import datetime, date
 from sqlmodel import Session, select
 from app.models.employee import Employee
-from app.models.salary_record import SalaryRecord
+from app.models.salary import SalaryRecord
 from app.models.overtime_record import OvertimeRecord
 from app.services.insurance_calculator import InsuranceCalculator
 from app.services.benefit_calculator import BenefitCalculator

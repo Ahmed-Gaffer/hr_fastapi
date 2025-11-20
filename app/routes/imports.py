@@ -15,7 +15,7 @@ from app.database import get_session
 from app.models.employee import Employee
 from app.models.site import Site
 from app.models.cost_center import CostCenter
-from app.models.salary_record import SalaryRecord, PayrollCategory
+from app.models.salary import SalaryRecord, PayrollCategory
 from app.models.salary_component import SalaryComponent, ComponentType
 from app.services.professional_salary_calculator import ProfessionalSalaryCalculator
 from app.services.smart_importer import SmartSalaryImporter

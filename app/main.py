@@ -17,6 +17,16 @@ app = FastAPI(title="HR System")
 
 create_db_and_tables()
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # رابط الفرونت إند
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # ربط الراوترات
 app.include_router(employee_router)
 app.include_router(site_router)
@@ -25,6 +35,3 @@ app.include_router(user_router)
 app.include_router(auth_router)
 app.include_router(imports_router)
 app.include_router(pages_router)
-
-# ربط مجلد frontend كـ static files على "/static"
-app.mount("/static", StaticFiles(directory="frontend", html=True), name="static")

@@ -1,0 +1,45 @@
+from sqlmodel import SQLModel, Field
+from typing import Optional
+from datetime import datetime
+from enum import Enum
+
+class TenantStatus(str, Enum):
+    ACTIVE = "نشط"
+    INACTIVE = "معطل"
+    TRIAL = "تجريبي"
+    EXPIRED = "منتهي"
+
+class Tenant(SQLModel, table=True):
+    """المؤسسة / الشركة (Tenant)"""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    
+    # معلومات الشركة
+    name: str  # اسم الشركة
+    code: str = Field(unique=True)  # كود فريد للشركة (مثل: NAGEEAH_2025)
+    legal_name: Optional[str] = None  # الاسم القانوني
+    industry: str = "مقاولات"  # القطاع (مقاولات، تجارة، إلخ)
+    
+    # العنوان
+    address: Optional[str] = None
+    city: Optional[str] = None
+    governorate: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    tax_id: Optional[str] = None  # الرقم الضريبي
+    
+    # الحالة والاشتراك
+    status: TenantStatus = TenantStatus.ACTIVE
+    subscription_type: str = "premium"  # basic, standard, premium
+    subscription_start: datetime = Field(default_factory=datetime.utcnow)
+    subscription_end: Optional[datetime] = None
+    
+    # المعلومات الإدارية
+    owner_name: Optional[str] = None
+    owner_phone: Optional[str] = None
+    owner_email: Optional[str] = None
+    
+    # التتبع
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    
+    is_default: bool = False  # هل هذه الشركة الافتراضية في النظام؟

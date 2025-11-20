@@ -1,0 +1,20 @@
+{
+  "salaries": {
+    "imported": 61,
+    "errors": []
+  },
+  "last_month_verification": {
+    "file_net_salary": 15500.00,
+    "calculated_net_salary": 15485.50,
+    "difference": 14.50,
+    "match": true,
+    "calculation_details": {
+      "employee_name": "أحمد محمد",
+      "earnings": {...},
+      "deductions": {...},
+      "net_salary": 15485.50
+    }
+  },
+  "warnings": [],
+  "status": "dry-run"
+}

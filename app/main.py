@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import tenants, employees, imports, attendance, reports
+from app.database import create_db_and_tables   # استدعاء الدالة
 
 app = FastAPI(title="نظام الرواتب الذكي - Nageeah HR")
 
@@ -17,8 +18,12 @@ app.add_middleware(
 app.include_router(tenants.router)
 app.include_router(employees.router)
 app.include_router(imports.router)
-app.include_router(attendance.router)   # ✅ تسجيل راوتر الحضور
-app.include_router(reports.router)      # ✅ تسجيل راوتر التقارير
+app.include_router(attendance.router)
+app.include_router(reports.router)
+
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()   # هنا بيتعمل إنشاء الجداول أوتوماتيك
 
 @app.get("/")
 async def root():

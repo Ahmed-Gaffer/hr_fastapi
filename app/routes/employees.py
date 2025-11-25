@@ -1,4 +1,4 @@
-# ...تعديل الموجود...
+# app/routes/employees.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 from app.database import get_session
@@ -8,7 +8,8 @@ from app.dependencies import get_current_tenant
 
 router = APIRouter(prefix="/employees", tags=["employees"])
 
-@router.post("/create")
+# 🔹 إنشاء موظف جديد
+@router.post("/create", response_model=Employee)
 async def create_employee(
     name: str,
     code: str,
@@ -16,19 +17,16 @@ async def create_employee(
     session: Session = Depends(get_session),
     tenant: Tenant = Depends(get_current_tenant)
 ):
-    """إنشاء موظف (ضمن الشركة الحالية)"""
-    
-    # تحقق من عدم تكرار الكود ضمن الشركة
+    """إنشاء موظف جديد ضمن الشركة الحالية"""
     existing = session.exec(
         select(Employee).where(
             Employee.tenant_id == tenant.id,
             Employee.code == code
         )
     ).first()
-    
     if existing:
-        raise HTTPException(status_code=400, detail="الكود موجود بالفعل في هذه الشركة")
-    
+        raise HTTPException(status_code=400, detail="موظف بنفس الكود موجود بالفعل")
+
     emp = Employee(
         tenant_id=tenant.id,
         name=name,
@@ -36,19 +34,75 @@ async def create_employee(
         base_salary=base_salary,
         status="نشط"
     )
-    
     session.add(emp)
     session.commit()
-    
-    return {"id": emp.id, "message": "تم إنشاء الموظف"}
+    session.refresh(emp)
+    return emp
 
-@router.get("/list")
+# 🔹 قائمة الموظفين
+@router.get("/list", response_model=list[Employee])
 async def list_employees(
     session: Session = Depends(get_session),
     tenant: Tenant = Depends(get_current_tenant)
 ):
-    """قائمة الموظفين (الشركة الحالية فقط)"""
+    """عرض جميع الموظفين للشركة الحالية"""
     employees = session.exec(
         select(Employee).where(Employee.tenant_id == tenant.id)
     ).all()
     return employees
+
+# 🔹 عرض موظف واحد
+@router.get("/{employee_id}", response_model=Employee)
+async def get_employee(
+    employee_id: int,
+    session: Session = Depends(get_session),
+    tenant: Tenant = Depends(get_current_tenant)
+):
+    """عرض بيانات موظف واحد"""
+    emp = session.exec(select(Employee).where(Employee.id == employee_id)).first()
+    if not emp or emp.tenant_id != tenant.id:
+        raise HTTPException(status_code=404, detail="الموظف غير موجود")
+    return emp
+
+# 🔹 تعديل بيانات موظف
+@router.put("/{employee_id}", response_model=Employee)
+async def update_employee(
+    employee_id: int,
+    name: str,
+    code: str,
+    base_salary: float,
+    session: Session = Depends(get_session),
+    tenant: Tenant = Depends(get_current_tenant)
+):
+    """تعديل بيانات الموظف"""
+    emp = session.exec(select(Employee).where(Employee.id == employee_id)).first()
+    if not emp or emp.tenant_id != tenant.id:
+        raise HTTPException(status_code=404, detail="الموظف غير موجود")
+    # تحقق من تكرار الكود مع موظف آخر
+    other = session.exec(
+        select(Employee).where(Employee.tenant_id == tenant.id, Employee.code == code, Employee.id != employee_id)
+    ).first()
+    if other:
+        raise HTTPException(status_code=400, detail="كود مستخدم من قبل موظف آخر")
+
+    emp.name = name
+    emp.code = code
+    emp.base_salary = base_salary
+    session.add(emp)
+    session.commit()
+    session.refresh(emp)
+    return emp
+
+# 🔹 حذف موظف
+@router.delete("/{employee_id}")
+async def delete_employee(
+    employee_id: int,
+    session: Session = Depends(get_session),
+    tenant: Tenant = Depends(get_current_tenant)
+):
+    emp = session.exec(select(Employee).where(Employee.id == employee_id)).first()
+    if not emp or emp.tenant_id != tenant.id:
+        raise HTTPException(status_code=404, detail="الموظف غير موجود")
+    session.delete(emp)
+    session.commit()
+    return {"detail": "تم حذف الموظف"}

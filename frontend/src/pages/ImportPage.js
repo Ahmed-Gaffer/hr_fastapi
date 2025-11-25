@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Box, Card, CardContent, Typography, Button, Alert, CircularProgress, LinearProgress } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Alert,
+  CircularProgress,
+  LinearProgress
+} from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { importEmployeesFromExcel } from '../services/api';
@@ -29,20 +38,27 @@ export default function ImportPage() {
     }
     setLoading(true);
     setProgress(0);
-    
+
     try {
       const interval = setInterval(() => {
-        setProgress(prev => (prev < 90 ? prev + 10 : prev));
+        setProgress((prev) => (prev < 90 ? prev + 10 : prev));
       }, 300);
 
-      const result = await importEmployeesFromExcel(file);
+      const result = await importEmployeesFromExcel(file, false); // false = تجربة (dry-run)
       clearInterval(interval);
       setProgress(100);
+
       setSuccess(`تم استيراد ${result.count || 0} موظف بنجاح`);
       setFile(null);
       setTimeout(() => setProgress(0), 1000);
     } catch (err) {
-      setError(`خطأ في الاستيراد: ${err.message}`);
+      const errorMsg =
+        err.response?.data?.detail ||
+        err.response?.data?.error ||
+        err.message ||
+        "فشل الاستيراد";
+
+      setError(`خطأ في الاستيراد: ${errorMsg}`);
     } finally {
       setLoading(false);
     }
@@ -52,7 +68,9 @@ export default function ImportPage() {
     <Box sx={{ mt: 12, mb: 4, maxWidth: 600, mx: 'auto' }}>
       <Card>
         <CardContent>
-          <Typography variant="h5" gutterBottom>استيراد الموظفين من Excel</Typography>
+          <Typography variant="h5" gutterBottom>
+            استيراد الموظفين من Excel
+          </Typography>
 
           <Box
             {...getRootProps()}
@@ -65,7 +83,10 @@ export default function ImportPage() {
               cursor: 'pointer',
               backgroundColor: file ? 'primary.light' : 'grey.50',
               transition: 'all 0.3s',
-              '&:hover': { borderColor: 'primary.main', backgroundColor: 'primary.light' }
+              '&:hover': {
+                borderColor: 'primary.main',
+                backgroundColor: 'primary.light'
+              }
             }}
           >
             <input {...getInputProps()} />
@@ -80,10 +101,20 @@ export default function ImportPage() {
             )}
           </Box>
 
-          {progress > 0 && <LinearProgress variant="determinate" value={progress} sx={{ mt: 2 }} />}
+          {progress > 0 && (
+            <LinearProgress variant="determinate" value={progress} sx={{ mt: 2 }} />
+          )}
 
-          {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
-          {success && <Alert severity="success" sx={{ mt: 2 }}>{success}</Alert>}
+          {error && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
+          {success && (
+            <Alert severity="success" sx={{ mt: 2 }}>
+              {success}
+            </Alert>
+          )}
 
           <Button
             variant="contained"

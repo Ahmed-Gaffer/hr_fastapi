@@ -1,42 +1,25 @@
-# تعريف جدول الموظفين
-from sqlmodel import SQLModel, Field
 from typing import Optional
-from datetime import date, datetime
-from sqlalchemy import UniqueConstraint
+from sqlmodel import SQLModel, Field
 
 class Employee(SQLModel, table=True):
-    """الموظف (مع Tenant)"""
     id: Optional[int] = Field(default=None, primary_key=True)
-    
-    # ⭐ Multi-tenancy
-    tenant_id: int = Field(foreign_key="tenant.id", index=True)
-    
-    # معلومات أساسية
-    code: str = Field(index=True)  # كود الموظف (فريد ضمن الشركة)
+    tenant_id: int = Field(index=True)
+    code: str = Field(index=True)
     name: str
-    role: Optional[str] = None
+    base_salary: float
+    status: str = "نشط"
     department: Optional[str] = None
-    
-    # معلومات التعاقد
-    site_id: Optional[int] = Field(foreign_key="site.id")
-    cost_center_id: Optional[int] = Field(foreign_key="costcenter.id")
-    hire_date: Optional[date] = None
-    contract_type: str = "دائم"  # دائم، مؤقت، موسمي
-    
-    # معلومات شخصية
-    national_id: Optional[str] = Field(index=True)
-    insurance_number: Optional[str] = Field(index=True)
-    phone: Optional[str] = None
-    email: Optional[str] = None
-    
-    # معلومات مالية
-    base_salary: float = 0
-    status: str = "نشط"  # نشط، معطل، منتهي
-    
-    # التتبع
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
-    
-__table_args__ = (
-    UniqueConstraint("tenant_id", "code", name="uq_tenant_code"),
-)
+
+class EmployeeCreate(SQLModel):
+    code: str
+    name: str
+    base_salary: float
+    status: Optional[str] = None
+    department: Optional[str] = None
+
+class EmployeeUpdate(SQLModel):
+    code: Optional[str] = None
+    name: Optional[str] = None
+    base_salary: Optional[float] = None
+    status: Optional[str] = None
+    department: Optional[str] = None

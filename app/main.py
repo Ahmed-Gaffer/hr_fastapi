@@ -1,11 +1,22 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import tenants, employees, imports, attendance, reports
-from app.database import create_db_and_tables   # استدعاء الدالة
+from fastapi.staticfiles import StaticFiles
+from app.routes import api_router
+from app.database import create_db_and_tables
 
-app = FastAPI(title="نظام الرواتب الذكي - Nageeah HR")
+app = FastAPI(title="HR FastAPI")
 
-# CORS
+# ✅ كل الـ APIs تحت /api
+app.include_router(api_router, prefix="/api")
+
+# ✅ Serve static files من الـ frontend لو موجود
+BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "build"))
+STATIC_DIR = os.path.join(BUILD_DIR, "static")
+if os.path.isdir(STATIC_DIR):
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+# ✅ إعدادات CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -14,22 +25,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# الراوترات
-app.include_router(tenants.router)
-app.include_router(employees.router)
-app.include_router(imports.router)
-app.include_router(attendance.router)
-app.include_router(reports.router)
-
 @app.on_event("startup")
 def on_startup():
-    create_db_and_tables()   # هنا بيتعمل إنشاء الجداول أوتوماتيك
-
-@app.get("/")
-async def root():
-    return {
-        "system": "نظام الرواتب الذكي",
-        "company": "نجيده للمقاولات",
-        "version": "1.0.0",
-        "status": "ready"
-    }
+    try:
+        create_db_and_tables()
+    except Exception:
+        pass

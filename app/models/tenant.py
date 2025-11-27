@@ -2,6 +2,7 @@ from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import datetime
 from enum import Enum
+import uuid
 
 class TenantStatus(str, Enum):
     ACTIVE = "نشط"
@@ -15,9 +16,9 @@ class Tenant(SQLModel, table=True):
     
     # معلومات الشركة
     name: str  # اسم الشركة
-    code: str = Field(unique=True)  # كود فريد للشركة (مثل: NAGEEAH_2025)
-    legal_name: Optional[str] = None  # الاسم القانوني
-    industry: str = "مقاولات"  # القطاع (مقاولات، تجارة، إلخ)
+    code: Optional[str] = Field(default=None, unique=True)  # ← اختياري
+    legal_name: Optional[str] = None
+    industry: str = "مقاولات"
     
     # العنوان
     address: Optional[str] = None
@@ -25,11 +26,11 @@ class Tenant(SQLModel, table=True):
     governorate: Optional[str] = None
     phone: Optional[str] = None
     email: Optional[str] = None
-    tax_id: Optional[str] = None  # الرقم الضريبي
+    tax_id: Optional[str] = None
     
     # الحالة والاشتراك
     status: TenantStatus = TenantStatus.ACTIVE
-    subscription_type: str = "premium"  # basic, standard, premium
+    subscription_type: str = "premium"
     subscription_start: datetime = Field(default_factory=datetime.utcnow)
     subscription_end: Optional[datetime] = None
     
@@ -42,4 +43,4 @@ class Tenant(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     
-    is_default: bool = False  # هل هذه الشركة الافتراضية في النظام؟
+    is_default: bool = False

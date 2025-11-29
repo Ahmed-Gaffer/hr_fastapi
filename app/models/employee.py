@@ -3,6 +3,8 @@ from typing import Optional, List
 from datetime import datetime, date
 from enum import Enum
 
+from app.models.employee_details import EmployeeDetails
+
 
 # 🟢 Enums علشان تمنع إدخال قيم عشوائية
 class WorkStatus(str, Enum):
@@ -57,10 +59,13 @@ class Employee(SQLModel, table=True):
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
     # 🔗 علاقات ORM
+    tenant: "Tenant" = Relationship(back_populates="employees")   # ← دي اللي كانت ناقصة
+    site: Optional["Site"] = Relationship(back_populates="employees")
+    project: Optional["Project"] = Relationship(back_populates="employees")
+
     attendances: List["Attendance"] = Relationship(back_populates="employee")
     salaries: List["SalaryRecord"] = Relationship(back_populates="employee")
     details: Optional["EmployeeDetails"] = Relationship(back_populates="employee")
-
 
 # 🟢 موديلات Create / Update
 class EmployeeCreate(SQLModel):

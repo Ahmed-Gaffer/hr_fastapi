@@ -34,9 +34,7 @@ class EmployeeImporter:
                 if not tenant and allow_create_tenant:
                     tenant = Tenant(name=company_name, code=f"auto-{company_name}")
                     session.add(tenant)
-                    session.commit()
-                    session.refresh(tenant)
-
+                    session.flush()   # بدل commit
             if not tenant:
                 skipped += 1
                 report_rows.append({"code": code, "reason": "لا توجد شركة/company_name"})
@@ -61,8 +59,7 @@ class EmployeeImporter:
                 if not site:
                     site = Site(name=site_name, tenant_id=tenant.id)
                     session.add(site)
-                    session.commit()
-                    session.refresh(site)
+                    session.flush()
 
             # 🔹 مركز التكلفة / المشروع (Project)
             project = None
@@ -78,8 +75,7 @@ class EmployeeImporter:
                         site_id=site.id if site else None
                     )
                     session.add(project)
-                    session.commit()
-                    session.refresh(project)
+                    session.flush()
 
             # 🔹 القسم (Department)
             department = None
@@ -91,8 +87,7 @@ class EmployeeImporter:
                 if not department:
                     department = Department(name=dept_name, tenant_id=tenant.id)
                     session.add(department)
-                    session.commit()
-                    session.refresh(department)
+                    session.flush()
 
             # 🔹 إنشاء الموظف وربطه بالـ IDs
             emp = Employee(
@@ -116,6 +111,7 @@ class EmployeeImporter:
             session.add(emp)
             imported += 1
 
+        # 🔹 commit مرة واحدة في الآخر
         if commit:
             session.commit()
 

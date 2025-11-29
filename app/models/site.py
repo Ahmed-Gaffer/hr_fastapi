@@ -12,8 +12,6 @@ class Site(SQLModel, table=True):
     tenant_id: int = Field(foreign_key="tenant.id", index=True)
     name: str = Field(index=True)   # شيلنا unique=True علشان نستخدم الـ UniqueConstraint
     location: Optional[str] = None
-    company_name: Optional[str] = None
-    cost_center: Optional[str] = None
 
     # 🔗 علاقات ORM
     tenant: "Tenant" = Relationship(back_populates="sites")
@@ -25,13 +23,9 @@ class SiteCreate(SQLModel):
     tenant_id: int
     name: str
     location: Optional[str] = None
-    company_name: Optional[str] = None
-    cost_center: Optional[str] = None
 
 
 class SiteUpdate(SQLModel):
     tenant_id: Optional[int] = None
     name: Optional[str] = None
     location: Optional[str] = None
-    company_name: Optional[str] = None
-    cost_center: Optional[str] = None

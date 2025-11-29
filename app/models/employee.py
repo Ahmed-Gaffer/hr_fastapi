@@ -44,7 +44,6 @@ class Employee(SQLModel, table=True):
 
     # 💰 بيانات مالية
     base_salary: float = 0.0
-    cost_center: Optional[str] = None           # مركز التكلفة
     employee_category: Optional[str] = None     # فئة الموظف
 
     # 🏥 بيانات التأمين
@@ -80,8 +79,6 @@ class EmployeeCreate(SQLModel):
     tenant_id: Optional[int] = None
     site_id: Optional[int] = None
     project_id: Optional[int] = None
-    department_id: Optional[int] = None
-    cost_center: Optional[str] = None
     insurance_status: Optional[InsuranceStatus] = None
     employee_category: Optional[str] = None
     work_status: Optional[WorkStatus] = None
@@ -98,8 +95,6 @@ class EmployeeUpdate(SQLModel):
     tenant_id: Optional[int] = None
     site_id: Optional[int] = None
     project_id: Optional[int] = None
-    department_id: Optional[int] = None
-    cost_center: Optional[str] = None
     insurance_status: Optional[InsuranceStatus] = None
     employee_category: Optional[str] = None
     work_status: Optional[WorkStatus] = None

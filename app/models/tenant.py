@@ -13,6 +13,7 @@ class TenantStatus(str, Enum):
 
 class Tenant(SQLModel, table=True):
     """المؤسسة / الشركة (Tenant)"""
+
     id: Optional[int] = Field(default=None, primary_key=True)
 
     # 🏢 معلومات الشركة
@@ -49,8 +50,10 @@ class Tenant(SQLModel, table=True):
     employees: List["Employee"] = Relationship(back_populates="tenant")
     sites: List["Site"] = Relationship(back_populates="tenant")
     projects: List["Project"] = Relationship(back_populates="tenant")
+    departments: List["Department"] = Relationship(back_populates="tenant")
 
 
+# 🟢 موديلات Create / Update
 class TenantCreate(SQLModel):
     name: str
     code: Optional[str] = None

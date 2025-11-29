@@ -5,16 +5,16 @@ from sqlalchemy import UniqueConstraint
 
 class Project(SQLModel, table=True):
     """المشروع / مركز التكلفة"""
+
     __table_args__ = (UniqueConstraint("tenant_id", "name", name="uq_project_tenant_name"),)
 
     id: Optional[int] = Field(default=None, primary_key=True)
+    tenant_id: int = Field(foreign_key="tenant.id", index=True)   # الشركة المالكة للمشروع
+    site_id: Optional[int] = Field(foreign_key="site.id", index=True)  # الموقع المرتبط بالمشروع
 
-    tenant_id: int = Field(foreign_key="tenant.id", index=True)   # الشركة
-    site_id: Optional[int] = Field(foreign_key="site.id", index=True)  # الموقع
-
-    # 📌 بيانات المشروع / مركز التكلفة
-    name: str = Field(index=True)       # اسم المشروع / مركز التكلفة
-    code: Optional[str] = Field(default=None, index=True)  # كود المشروع / مركز التكلفة
+    # 📌 بيانات المشروع
+    name: str = Field(index=True)   # اسم المشروع / مركز التكلفة
+    code: Optional[str] = Field(default=None, index=True)   # كود المشروع
     description: Optional[str] = None   # وصف إضافي
 
     # 🔗 علاقات ORM

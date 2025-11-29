@@ -5,6 +5,7 @@ from datetime import date, time
 
 class Attendance(SQLModel, table=True):
     """سجل حضور الموظف"""
+
     id: Optional[int] = Field(default=None, primary_key=True)
 
     # 🔗 علاقات أساسية
@@ -15,9 +16,11 @@ class Attendance(SQLModel, table=True):
     date: date
     check_in: Optional[time] = None
     check_out: Optional[time] = None
+    status: str = "حاضر"  # حاضر، غائب، متأخر
 
     # 🔗 علاقة ORM
     employee: "Employee" = Relationship(back_populates="attendances")
+    site: Optional["Site"] = Relationship()  # لو عايز تربط الحضور بالموقع مباشرة
 
 
 # 🟢 موديلات Create / Update

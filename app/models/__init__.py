@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/__init__.py
+# File Name: __init__.py
+# -----------------------------------------
+
 from .tenant import Tenant
 from .site import Site
 from .employee import Employee

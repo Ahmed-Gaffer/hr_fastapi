@@ -3,10 +3,6 @@ from datetime import date, datetime
 from enum import Enum
 from sqlmodel import SQLModel, Field, Relationship
 
-from app.models.cost_center import Project
-
-from app.models.employee import Employee
-
 
 class PayrollCategory(str, Enum):
     CATEGORY_A = "الفئة_الأولى"
@@ -16,6 +12,7 @@ class PayrollCategory(str, Enum):
 
 class SalaryRecord(SQLModel, table=True):
     """سجل الراتب (مع Tenant)"""
+
     id: Optional[int] = Field(default=None, primary_key=True)
 
     # ⭐ Multi-tenancy
@@ -23,11 +20,12 @@ class SalaryRecord(SQLModel, table=True):
     employee_id: int = Field(foreign_key="employee.id", index=True)
     project_id: Optional[int] = Field(foreign_key="project.id", index=True)
 
+    # 📅 الفترة
     salary_year: int
     salary_month: int
     payroll_category: PayrollCategory = PayrollCategory.CATEGORY_A
 
-    # الاستحقاقات
+    # 💰 الاستحقاقات
     basic_salary: float = 0
     allowance_meals: float = 0
     allowance_transport: float = 0
@@ -42,7 +40,7 @@ class SalaryRecord(SQLModel, table=True):
     other_earnings: float = 0
     total_earnings: float = 0
 
-    # الاستقطاعات
+    # 📉 الاستقطاعات
     deduction_insurance_social_employee: float = 0
     deduction_insurance_health: float = 0
     deduction_tax_income: float = 0
@@ -52,17 +50,17 @@ class SalaryRecord(SQLModel, table=True):
     deduction_in_kind_benefits: float = 0
     total_deductions: float = 0
 
-    # الراتب المستحق
+    # 💵 الراتب المستحق
     salary_due: float = 0
 
-    # السلف والقروض
+    # 🏦 السلف والقروض
     advance_salary: float = 0
     loan_deduction: float = 0
 
-    # الصافي النهائي
+    # ✅ الصافي النهائي
     net_salary: float = 0
 
-    # معلومات إضافية
+    # 📌 معلومات إضافية
     attendance_days: int = 30
     absence_days: int = 0
     payment_date: Optional[date] = None
@@ -71,6 +69,6 @@ class SalaryRecord(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
-    # 🔗 علاقة ORM
+    # 🔗 علاقات ORM
     employee: "Employee" = Relationship(back_populates="salaries")
     project: Optional["Project"] = Relationship(back_populates="salaries")

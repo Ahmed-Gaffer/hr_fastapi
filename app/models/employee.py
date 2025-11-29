@@ -3,8 +3,6 @@ from typing import Optional, List
 from datetime import datetime, date
 from enum import Enum
 
-from app.models.employee_details import EmployeeDetails
-
 
 # 🟢 Enums علشان تمنع إدخال قيم عشوائية
 class WorkStatus(str, Enum):
@@ -27,24 +25,25 @@ class EmployeeStatus(str, Enum):
 # 🧑 موديل الموظف
 class Employee(SQLModel, table=True):
     """الموظف"""
+
     id: Optional[int] = Field(default=None, primary_key=True)
 
     # 🔗 علاقات أساسية
-    tenant_id: int = Field(foreign_key="tenant.id", index=True)   # الشركة
+    tenant_id: int = Field(foreign_key="tenant.id", index=True)  # الشركة
     site_id: Optional[int] = Field(foreign_key="site.id", index=True)  # الموقع
     project_id: Optional[int] = Field(foreign_key="project.id", index=True)  # المشروع
     department_id: Optional[int] = Field(default=None, foreign_key="department.id", index=True)  # القسم
 
     # 🧑 بيانات أساسية
-    code: str = Field(index=True)                # كود الموظف
-    name: str                                   # اسم الموظف
-    national_id: Optional[str] = None           # الرقم القومي
-    job_title: Optional[str] = None             # الوظيفة
-    hire_date: Optional[date] = None            # تاريخ التعيين
+    code: str = Field(index=True)  # كود الموظف
+    name: str  # اسم الموظف
+    national_id: Optional[str] = None  # الرقم القومي
+    job_title: Optional[str] = None  # الوظيفة
+    hire_date: Optional[date] = None  # تاريخ التعيين
 
     # 💰 بيانات مالية
     base_salary: float = 0.0
-    employee_category: Optional[str] = None     # فئة الموظف
+    employee_category: Optional[str] = None  # فئة الموظف
 
     # 🏥 بيانات التأمين
     insurance_status: Optional[InsuranceStatus] = None
@@ -66,6 +65,7 @@ class Employee(SQLModel, table=True):
     attendances: List["Attendance"] = Relationship(back_populates="employee")
     salaries: List["SalaryRecord"] = Relationship(back_populates="employee")
     details: Optional["EmployeeDetails"] = Relationship(back_populates="employee")
+    trainings: List["EmployeeTraining"] = Relationship(back_populates="employee")
 
 
 # 🟢 موديلات Create / Update
@@ -79,6 +79,7 @@ class EmployeeCreate(SQLModel):
     tenant_id: Optional[int] = None
     site_id: Optional[int] = None
     project_id: Optional[int] = None
+    department_id: Optional[int] = None
     insurance_status: Optional[InsuranceStatus] = None
     employee_category: Optional[str] = None
     work_status: Optional[WorkStatus] = None
@@ -95,6 +96,7 @@ class EmployeeUpdate(SQLModel):
     tenant_id: Optional[int] = None
     site_id: Optional[int] = None
     project_id: Optional[int] = None
+    department_id: Optional[int] = None
     insurance_status: Optional[InsuranceStatus] = None
     employee_category: Optional[str] = None
     work_status: Optional[WorkStatus] = None

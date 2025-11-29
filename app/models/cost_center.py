@@ -1,9 +1,12 @@
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
+from sqlalchemy import UniqueConstraint
 
 
 class Project(SQLModel, table=True):
     """المشروع / مركز التكلفة"""
+    __table_args__ = (UniqueConstraint("tenant_id", "name", name="uq_project_tenant_name"),)
+
     id: Optional[int] = Field(default=None, primary_key=True)
 
     tenant_id: int = Field(foreign_key="tenant.id", index=True)   # الشركة

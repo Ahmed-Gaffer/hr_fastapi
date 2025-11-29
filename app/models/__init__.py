@@ -12,3 +12,4 @@ from .salary_component import SalaryComponent
 from .salary_config import SalaryConfig
 from .tax_policy import TaxPolicy
 from .user import User
+from .department import Department

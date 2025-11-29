@@ -1,13 +1,16 @@
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
+from sqlalchemy import UniqueConstraint
 
 
 class Site(SQLModel, table=True):
     """الموقع"""
+    __table_args__ = (UniqueConstraint("tenant_id", "name", name="uq_site_tenant_name"),)
+
     id: Optional[int] = Field(default=None, primary_key=True)
 
     tenant_id: int = Field(foreign_key="tenant.id", index=True)
-    name: str = Field(index=True, unique=True)
+    name: str = Field(index=True)   # شيلنا unique=True علشان نستخدم الـ UniqueConstraint
     location: Optional[str] = None
     company_name: Optional[str] = None
     cost_center: Optional[str] = None

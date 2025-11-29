@@ -33,6 +33,7 @@ class Employee(SQLModel, table=True):
     tenant_id: int = Field(foreign_key="tenant.id", index=True)   # الشركة
     site_id: Optional[int] = Field(foreign_key="site.id", index=True)  # الموقع
     project_id: Optional[int] = Field(foreign_key="project.id", index=True)  # المشروع
+    department_id: Optional[int] = Field(default=None, foreign_key="department.id", index=True)  # القسم
 
     # 🧑 بيانات أساسية
     code: str = Field(index=True)                # كود الموظف
@@ -52,20 +53,21 @@ class Employee(SQLModel, table=True):
     # 📌 حالة العمل
     work_status: Optional[WorkStatus] = None
     status: EmployeeStatus = EmployeeStatus.ACTIVE
-    department: Optional[str] = None
 
     # 🕒 تتبع
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
     # 🔗 علاقات ORM
-    tenant: "Tenant" = Relationship(back_populates="employees")   # ← دي اللي كانت ناقصة
+    tenant: "Tenant" = Relationship(back_populates="employees")
     site: Optional["Site"] = Relationship(back_populates="employees")
     project: Optional["Project"] = Relationship(back_populates="employees")
+    department: Optional["Department"] = Relationship(back_populates="employees")
 
     attendances: List["Attendance"] = Relationship(back_populates="employee")
     salaries: List["SalaryRecord"] = Relationship(back_populates="employee")
     details: Optional["EmployeeDetails"] = Relationship(back_populates="employee")
+
 
 # 🟢 موديلات Create / Update
 class EmployeeCreate(SQLModel):
@@ -78,12 +80,12 @@ class EmployeeCreate(SQLModel):
     tenant_id: Optional[int] = None
     site_id: Optional[int] = None
     project_id: Optional[int] = None
+    department_id: Optional[int] = None
     cost_center: Optional[str] = None
     insurance_status: Optional[InsuranceStatus] = None
     employee_category: Optional[str] = None
     work_status: Optional[WorkStatus] = None
     status: Optional[EmployeeStatus] = None
-    department: Optional[str] = None
 
 
 class EmployeeUpdate(SQLModel):
@@ -96,9 +98,9 @@ class EmployeeUpdate(SQLModel):
     tenant_id: Optional[int] = None
     site_id: Optional[int] = None
     project_id: Optional[int] = None
+    department_id: Optional[int] = None
     cost_center: Optional[str] = None
     insurance_status: Optional[InsuranceStatus] = None
     employee_category: Optional[str] = None
     work_status: Optional[WorkStatus] = None
     status: Optional[EmployeeStatus] = None
-    department: Optional[str] = None

@@ -3,7 +3,11 @@ from sqlmodel import Session, select
 from datetime import datetime
 from app.models.employee import Employee
 from app.models.tenant import Tenant
+from app.models.site import Site
+from app.models.cost_center import Project
+from app.models.department import Department
 from app.services.cleaners import clean_employee_data
+
 
 class EmployeeImporter:
     def run(self, session: Session, stream: bytes, commit: bool, allow_create_tenant: bool):
@@ -23,7 +27,7 @@ class EmployeeImporter:
             name = str(row.get("name")).strip()
             company_name = row.get("company_name")
 
-            # البحث عن الشركة
+            # 🔹 البحث عن الشركة (Tenant)
             tenant = None
             if company_name:
                 tenant = session.exec(select(Tenant).where(Tenant.name == company_name)).first()
@@ -38,7 +42,7 @@ class EmployeeImporter:
                 report_rows.append({"code": code, "reason": "لا توجد شركة/company_name"})
                 continue
 
-            # منع التكرار
+            # 🔹 منع التكرار
             exists = session.exec(
                 select(Employee).where(Employee.tenant_id == tenant.id, Employee.code == code)
             ).first()
@@ -47,23 +51,65 @@ class EmployeeImporter:
                 report_rows.append({"code": code, "reason": "كود مكرر"})
                 continue
 
-            # إنشاء الموظف بكامل الأعمدة بعد التنظيف
+            # 🔹 الموقع (Site)
+            site = None
+            site_name = row.get("site_name")
+            if site_name:
+                site = session.exec(
+                    select(Site).where(Site.name == site_name, Site.tenant_id == tenant.id)
+                ).first()
+                if not site:
+                    site = Site(name=site_name, tenant_id=tenant.id)
+                    session.add(site)
+                    session.commit()
+                    session.refresh(site)
+
+            # 🔹 مركز التكلفة / المشروع (Project)
+            project = None
+            cost_center_name = row.get("cost_center")
+            if cost_center_name:
+                project = session.exec(
+                    select(Project).where(Project.name == cost_center_name, Project.tenant_id == tenant.id)
+                ).first()
+                if not project:
+                    project = Project(
+                        name=cost_center_name,
+                        tenant_id=tenant.id,
+                        site_id=site.id if site else None
+                    )
+                    session.add(project)
+                    session.commit()
+                    session.refresh(project)
+
+            # 🔹 القسم (Department)
+            department = None
+            dept_name = row.get("department")
+            if dept_name:
+                department = session.exec(
+                    select(Department).where(Department.name == dept_name, Department.tenant_id == tenant.id)
+                ).first()
+                if not department:
+                    department = Department(name=dept_name, tenant_id=tenant.id)
+                    session.add(department)
+                    session.commit()
+                    session.refresh(department)
+
+            # 🔹 إنشاء الموظف وربطه بالـ IDs
             emp = Employee(
                 tenant_id=tenant.id,
+                site_id=site.id if site else None,
+                project_id=project.id if project else None,
+                department_id=department.id if department else None,
                 code=code,
                 name=name,
                 national_id=row.get("national_id"),
                 job_title=row.get("job_title"),
                 hire_date=row.get("hire_date"),
-                company_name=company_name,
-                site_name=row.get("site_name"),
-                cost_center=row.get("cost_center"),
                 insurance_status=row.get("insurance_status"),
                 employee_category=row.get("employee_category"),
                 work_status=row.get("work_status"),
                 base_salary=float(row.get("base_salary") or 0),
                 status=row.get("work_status") or "نشط",
-                department=row.get("department"),
                 created_at=datetime.utcnow(),
                 updated_at=datetime.utcnow()
             )

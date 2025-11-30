@@ -1,0 +1,11 @@
+from sqlmodel import SQLModel, Field
+from typing import Optional
+
+class EmployeeSalary(SQLModel, table=True):
+    """جدول وسيط يربط الموظف بسجلات الرواتب"""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    employee_id: int = Field(foreign_key="employee.id", index=True)
+    salary_id: int = Field(foreign_key="salaryrecord.id", index=True)
+
+    effective_from: Optional[date] = None
+    effective_to: Optional[date] = None

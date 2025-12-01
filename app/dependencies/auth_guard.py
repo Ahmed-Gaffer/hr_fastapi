@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\dependencies\auth_guard.py
+# File Name: auth_guard.py
+# -----------------------------------------
+
 # التحقق من التوكن وصلاحية المستخدم
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer

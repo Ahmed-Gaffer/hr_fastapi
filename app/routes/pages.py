@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\routes\pages.py
+# File Name: pages.py
+# -----------------------------------------
+
 import os
 from fastapi import APIRouter
 from fastapi.responses import FileResponse

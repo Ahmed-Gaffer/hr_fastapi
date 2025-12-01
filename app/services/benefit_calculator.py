@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\benefit_calculator.py
+# File Name: benefit_calculator.py
+# -----------------------------------------
+
 from sqlmodel import Session, select
 from app.models.salary import SalaryRecord
 from app.models.benefit_record import BenefitRecord, BenefitType

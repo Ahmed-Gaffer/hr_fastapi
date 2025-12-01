@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/database.py
+# File Name: database.py
+# -----------------------------------------
+
 from typing import Generator
 from sqlmodel import SQLModel, create_engine, Session
 import os

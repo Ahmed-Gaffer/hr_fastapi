@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\scripts\test_salary.py
+# File Name: test_salary.py
+# -----------------------------------------
+
 # سكريبت لحساب مرتب موظف معين في شهر معين
 
 from app.services.salary_logic import calculate_salary

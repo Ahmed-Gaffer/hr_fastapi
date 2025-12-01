@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\insurance_calculator.py
+# File Name: insurance_calculator.py
+# -----------------------------------------
+
 from sqlmodel import Session, select
 from app.models.employee import Employee
 from app.models.employee_details import EmployeeDetails

@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/employee_details.py
+# File Name: employee_details.py
+# -----------------------------------------
+
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional
 

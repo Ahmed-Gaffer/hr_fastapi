@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/main.py
+# File Name: main.py
+# -----------------------------------------
+
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

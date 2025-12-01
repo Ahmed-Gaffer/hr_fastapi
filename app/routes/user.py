@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\routes\user.py
+# File Name: user.py
+# -----------------------------------------
+
 # راوتر خاص بإدارة المستخدمين
 from fastapi import APIRouter
 from sqlmodel import Session, select

@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/salary_component.py
+# File Name: salary_component.py
+# -----------------------------------------
+
 from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import datetime

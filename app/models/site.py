@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/site.py
+# File Name: site.py
+# -----------------------------------------
+
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
 from sqlalchemy import UniqueConstraint
@@ -17,6 +21,8 @@ class Site(SQLModel, table=True):
     tenant: "Tenant" = Relationship(back_populates="sites")
     employees: List["Employee"] = Relationship(back_populates="site")
     projects: List["Project"] = Relationship(back_populates="site")
+    cost_centers: List["CostCenter"] = Relationship(back_populates="site")  # مراكز التكلفة المرتبطة بالموقع
+    attendances: List["Attendance"] = Relationship(back_populates="site")  # سجلات الحضور المرتبطة بالموقع
 
 
 # 🟢 موديلات Create / Update

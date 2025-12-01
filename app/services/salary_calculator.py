@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\salary_calculator.py
+# File Name: salary_calculator.py
+# -----------------------------------------
+
 from datetime import datetime, date
 from sqlmodel import Session, select
 from app.models.employee import Employee

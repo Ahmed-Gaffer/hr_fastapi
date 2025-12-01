@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\imports\attendance.py
+# File Name: attendance.py
+# -----------------------------------------
+
 # app/services/imports/attendance.py
 import pandas as pd
 from sqlmodel import Session, select

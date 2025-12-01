@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\auth.py
+# File Name: auth.py
+# -----------------------------------------
+
 # خدمات التوثيق باستخدام JWT
 from datetime import datetime, timedelta
 from jose import JWTError, jwt

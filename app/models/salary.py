@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/salary.py
+# File Name: salary.py
+# -----------------------------------------
+
 from typing import Optional
 from datetime import date, datetime
 from enum import Enum
@@ -18,7 +22,7 @@ class SalaryRecord(SQLModel, table=True):
     # ⭐ Multi-tenancy
     tenant_id: int = Field(foreign_key="tenant.id", index=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)
-    project_id: Optional[int] = Field(foreign_key="project.id", index=True)
+    cost_center_id: Optional[int] = Field(foreign_key="costcenter.id", index=True)  # مركز التكلفة
 
     # 📅 الفترة
     salary_year: int
@@ -71,4 +75,4 @@ class SalaryRecord(SQLModel, table=True):
 
     # 🔗 علاقات ORM
     employee: "Employee" = Relationship(back_populates="salaries")
-    project: Optional["Project"] = Relationship(back_populates="salaries")
+    cost_center: Optional["CostCenter"] = Relationship(back_populates="salaries")

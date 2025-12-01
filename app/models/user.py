@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/user.py
+# File Name: user.py
+# -----------------------------------------
+
 from sqlmodel import SQLModel, Field
 from typing import Optional
 

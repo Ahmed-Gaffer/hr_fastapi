@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/dependencies.py
+# File Name: dependencies.py
+# -----------------------------------------
+
 from fastapi import Header, HTTPException, Depends
 from sqlmodel import Session, select
 from app.database import get_session

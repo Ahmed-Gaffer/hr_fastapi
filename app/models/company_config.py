@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/company_config.py
+# File Name: company_config.py
+# -----------------------------------------
+
 from sqlmodel import SQLModel, Field
 from typing import Optional
 import json

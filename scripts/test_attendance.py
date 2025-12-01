@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\scripts\test_attendance.py
+# File Name: test_attendance.py
+# -----------------------------------------
+
 # سكريبت بسيط لتسجيل حضور موظف يدويًا (للاختبار فقط)
 
 from sqlmodel import Session

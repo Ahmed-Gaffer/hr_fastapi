@@ -1,3 +1,7 @@
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\imports\salaries.py
+# File Name: salaries.py
+# -----------------------------------------
+
 # app/services/imports/salaries.py
 import pandas as pd
 import re

@@ -7,7 +7,7 @@ from sqlmodel import Session, select
 from app.database import get_session
 from app.models.employee import Employee, EmployeeCreate, EmployeeUpdate
 from app.models.tenant import Tenant
-from app.dependencies import get_current_tenant
+from app.dependencies.dependencies import get_current_tenant
 
 router = APIRouter(prefix="/employees", tags=["employees"])
 

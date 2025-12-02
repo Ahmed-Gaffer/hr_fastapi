@@ -8,7 +8,7 @@ from app.database import get_session
 from app.models.salary_component import SalaryComponent, ComponentType
 from app.models.salary import SalaryRecord
 from app.models.tenant import Tenant
-from app.dependencies import get_current_tenant
+from app.dependencies.dependencies import get_current_tenant
 
 router = APIRouter(prefix="/salary-components", tags=["salary-components"])
 

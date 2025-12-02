@@ -8,7 +8,7 @@ from datetime import datetime
 from app.models.employee import Employee
 from app.models.tenant import Tenant
 from app.models.site import Site
-from app.models.cost_center import Project
+from app.models.project import Project
 from app.models.department import Department
 from app.services.cleaners import clean_employee_data
 

@@ -5,7 +5,7 @@
 from sqlmodel import SQLModel, Field
 from typing import Optional
 
-class ProjectConfiguration(SQLModel, table=True):
+class Project_Configuration(SQLModel, table=True):
     """جدول وسيط يربط المشروع بالإعدادات"""
     id: Optional[int] = Field(default=None, primary_key=True)
     project_id: int = Field(foreign_key="project.id", index=True)

@@ -6,7 +6,7 @@ from datetime import date
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
-class EmployeeTrainingCertificationProjectSite(SQLModel, table=True):
+class Employee_Training_Certification_Project_Site(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالتدريب والشهادة والمشروع والموقع"""
     id: Optional[int] = Field(default=None, primary_key=True)
 

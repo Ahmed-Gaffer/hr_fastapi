@@ -6,7 +6,7 @@ from sqlmodel import SQLModel, Field
 from typing import Optional
 
 
-class EmployeeSkill(SQLModel, table=True):
+class Employee_Skill(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالمهارات (Many-to-Many)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)

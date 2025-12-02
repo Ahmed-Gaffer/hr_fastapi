@@ -7,6 +7,8 @@ from typing import Optional, List
 from datetime import datetime
 from enum import Enum
 
+from app.models.project import Project
+
 
 class TenantStatus(str, Enum):
     ACTIVE = "نشط"
@@ -55,6 +57,9 @@ class Tenant(SQLModel, table=True):
     sites: List["Site"] = Relationship(back_populates="tenant")
     projects: List["Project"] = Relationship(back_populates="tenant")
     departments: List["Department"] = Relationship(back_populates="tenant")
+    cost_centers: List["CostCenter"] = Relationship(back_populates="tenant")
+    salaries: List["SalaryRecord"] = Relationship(back_populates="tenant")
+    attendances: List["Attendance"] = Relationship(back_populates="tenant")
 
 
 # 🟢 موديلات Create / Update

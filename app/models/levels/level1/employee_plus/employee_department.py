@@ -7,7 +7,7 @@ from typing import Optional
 from datetime import date
 
 
-class EmployeeDepartment(SQLModel, table=True):
+class Employee_Department(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالأقسام (Many-to-Many)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)

@@ -76,3 +76,4 @@ class SalaryRecord(SQLModel, table=True):
     # 🔗 علاقات ORM
     employee: "Employee" = Relationship(back_populates="salaries")
     cost_center: Optional["CostCenter"] = Relationship(back_populates="salaries")
+    tenant: "Tenant" = Relationship(back_populates="salaries")

@@ -5,7 +5,7 @@
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
-class EmployeeProjectCostCenter(SQLModel, table=True):
+class Employee_Project_CostCenter(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالمشروع ومركز التكلفة"""
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)

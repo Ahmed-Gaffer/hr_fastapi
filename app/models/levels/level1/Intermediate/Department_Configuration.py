@@ -5,7 +5,7 @@
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
-class DepartmentConfiguration(SQLModel, table=True):
+class Department_Configuration(SQLModel, table=True):
     """جدول وسيط يربط القسم بالإعدادات"""
     id: Optional[int] = Field(default=None, primary_key=True)
     department_id: int = Field(foreign_key="department.id", index=True)

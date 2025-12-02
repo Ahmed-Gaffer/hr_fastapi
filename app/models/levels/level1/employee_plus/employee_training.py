@@ -2,12 +2,11 @@
 # File Name: employee_training.py
 # -----------------------------------------
 
-from sqlmodel import Relationship, SQLModel, Field
+from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional
 from datetime import date
 
-
-class EmployeeTraining(SQLModel, table=True):
+class Employee_Training(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالدورات التدريبية والشهادات"""
 
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -28,4 +27,4 @@ class EmployeeTraining(SQLModel, table=True):
     notes: Optional[str] = None
 
     # 🔗 علاقات ORM
-    employee: "Employee" = Relationship(back_populates="trainings") 
+    employee: "Employee" = Relationship(back_populates="trainings")

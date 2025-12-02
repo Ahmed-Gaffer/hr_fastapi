@@ -1,3 +1,6 @@
+from typing import Optional
+from sqlmodel import SQLModel, Field, Relationship
+
 # File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\models\levels\level1\units\AdvanceSalary.py
 # File Name: AdvanceSalary.py
 # -----------------------------------------

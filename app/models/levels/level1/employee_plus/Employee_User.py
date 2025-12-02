@@ -5,7 +5,7 @@
 from sqlmodel import SQLModel, Field
 from typing import Optional
 
-class EmployeeUser(SQLModel, table=True):
+class Employee_User(SQLModel, table=True):
     """جدول وسيط يربط الموظف بحساب الدخول (User)"""
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)

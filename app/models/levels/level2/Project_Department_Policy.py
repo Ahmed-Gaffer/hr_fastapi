@@ -5,7 +5,7 @@
 from sqlmodel import SQLModel, Field
 from typing import Optional
 
-class ProjectDepartmentPolicy(SQLModel, table=True):
+class Project_Department_Policy(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     project_id: int = Field(foreign_key="project.id")
     department_id: int = Field(foreign_key="department.id")

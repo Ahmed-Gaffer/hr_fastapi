@@ -6,7 +6,7 @@ from typing import Optional
 from sqlmodel import SQLModel, Field
 from datetime import date
 
-class TenantSiteDepartmentCostCenter(SQLModel, table=True):
+class Tenant_Site_Department_CostCenter(SQLModel, table=True):
     """جدول وسيط يربط الشركة بالموقع والقسم ومركز التكلفة"""
     id: Optional[int] = Field(default=None, primary_key=True)
 

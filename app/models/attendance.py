@@ -16,6 +16,7 @@ class Attendance(SQLModel, table=True):
     employee_id: int = Field(foreign_key="employee.id", index=True)
     site_id: Optional[int] = Field(foreign_key="site.id", index=True)  # الموقع
     cost_center_id: Optional[int] = Field(foreign_key="costcenter.id", index=True)  # مركز التكلفة
+    tenant_id: int = Field(foreign_key="tenant.id", index=True)  # المؤسسة / الشركة (Tenant)
 
     # 🕒 بيانات الحضور
     date: date
@@ -27,6 +28,7 @@ class Attendance(SQLModel, table=True):
     employee: "Employee" = Relationship(back_populates="attendances")
     site: Optional["Site"] = Relationship(back_populates="attendances")
     cost_center: Optional["CostCenter"] = Relationship(back_populates="attendances")
+    tenant: "Tenant" = Relationship(back_populates="attendances")
 
 
 # 🟢 موديلات Create / Update

@@ -1,0 +1,326 @@
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\benefit_record.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\company_config.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\overtime_record.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\salary.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\salary_component.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\salary_config.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\tax_policy.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\user.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_AdvanceSalary.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_AdvanceSalary' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\employee_asset.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Asset' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_AttendanceRecord.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_AttendanceRecord' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_BenefitRecord.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_BenefitRecord' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\employee_certification.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Certification' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_Configuration.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Configuration' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_DeductionRecord.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_DeductionRecord' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\employee_department.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Department' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_Disciplinary.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Disciplinary' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\employee_leave.py
+⚠️ الكلاس 'Employee_Leave' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_Loan.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Loan' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_PerformanceReview.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_PerformanceReview' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\employee_policy.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Policy' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\employee_project.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Project' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_PublicHoliday.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_PublicHoliday' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_Reward.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Reward' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\employee_role.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Role' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_SalaryRecord.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_SalaryRecord' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\employee_skill.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Skill' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_Tenant.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Tenant' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\employee_training.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Training' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\employee_plus\Employee_User.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_User' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Asset_Site.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Asset_Site' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Department_Configuration.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Department_Configuration' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Department_Policy.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Department_Policy' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Department_Site.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Department_Site' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Project_Asset.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Project_Asset' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Project_Configuration.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Project_Configuration' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Project_Department.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Project_Department' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Project_Policy.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Project_Policy' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\project_site.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Project_Site' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Tenant_Configuration.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Tenant_Configuration' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Tenant_Department.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Tenant_Department' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Tenant_Policy.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Tenant_Policy' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Tenant_Site.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Tenant_Site' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\Intermediate\Training_Project.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Training_Project' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\units\AdvanceSalary.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\units\DisciplinaryAction.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\units\Loan.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\units\PerformanceReview.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\units\PublicHoliday.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level1\units\Reward.py
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level2\Employee_Asset_Site.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Asset_Site' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level2\Employee_Department_Role.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Department_Role' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level2\Employee_Department_Site.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Department_Site' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level2\Employee_Policy_CostCenter.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Policy_CostCenter' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level2\Employee_Project_CostCenter.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Project_CostCenter' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level2\Employee_Project_Site.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Project_Site' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level2\Employee_Site_Role.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Site_Role' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level2\Employee_Training_Certification.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Training_Certification' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level2\Project_Department_Policy.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Project_Department_Policy' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level2\Project_Employee_Role.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Project_Employee_Role' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level3\Employee_Asset_Project_Site.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Asset_Project_Site' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level3\Employee_Asset_Site_Role.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Asset_Site_Role' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level3\Employee_Project_Role_CostCenter.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Project_Role_CostCenter' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level3\Employee_Project_Site_CostCenter.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Project_Site_CostCenter' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level3\Employee_Project_Site_Department.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Project_Site_Department' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level3\Employee_Training_Certification_Project.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Training_Certification_Project' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level3\Employee_Training_Project_Site.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Training_Project_Site' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level3\Tenant_Site_Department_CostCenter.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Tenant_Site_Department_CostCenter' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level4\Employee_Asset_Project_Site_Role.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Asset_Project_Site_Role' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level4\Employee_Training_Certification_Project_Site.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Employee_Training_Certification_Project_Site' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف
+
+📂 ملف: E:\خاص احمد جعفر\برمجة\مشاريع\hr_fastapi\app\models\levels\level4\Tenant_Site_Department_CostCenter_Policy.py
+❌ لا يوجد كلاس معرف في الملف
+⚠️ الكلاس 'Tenant_Site_Department_CostCenter_Policy' مش CamelCase (مفروض يتكتب مثلاً EmployeeCostCenter)
+⚠️ لا يوجد موديلات Create/Update في الملف

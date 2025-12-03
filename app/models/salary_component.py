@@ -8,7 +8,7 @@ from datetime import datetime
 from enum import Enum
 
 
-class ComponentType(str, Enum):
+class SalaryComponentStatus(str, Enum):
     """أنواع البنود الإضافية (مرونة للمستقبل)"""
     EXTRA_HOURS = "ساعات_إضافية"
     NIGHT_SHIFT = "عمل_ليلي"

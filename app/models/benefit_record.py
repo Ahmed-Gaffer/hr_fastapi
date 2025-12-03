@@ -7,7 +7,7 @@ from typing import Optional
 from enum import Enum
 
 
-class BenefitType(str, Enum):
+class BenefitRecordStatus(str, Enum):
     """نوع البدلة"""
     IN_KIND_MEALS = "وجبات"
     IN_KIND_TRANSPORT = "مواصلات"

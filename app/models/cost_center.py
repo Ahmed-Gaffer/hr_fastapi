@@ -10,7 +10,7 @@ from app.models.salary import SalaryRecord
 
 
 
-class CostCenter(SQLModel, table=True):
+class CostCenterCreate(SQLModel, table=True):
     """مركز التكلفة"""
 
     __table_args__ = (UniqueConstraint("project_id", "name", name="uq_costcenter_project_name"),)
@@ -40,7 +40,7 @@ class CostCenterCreate(SQLModel):
     description: Optional[str] = None
 
 
-class CostCenterUpdate(SQLModel):
+class CostCenterCreate(SQLModel):
     project_id: Optional[int] = None
     name: Optional[str] = None
     code: Optional[str] = None

@@ -5,7 +5,7 @@ from sqlmodel import SQLModel, Field, Relationship
 # File Name: Tenant_Department.py
 # -----------------------------------------
 
-class Tenant_Department(SQLModel, table=True):
+class Tenantdepartment(SQLModel, table=True):
     """جدول وسيط يربط الشركات بالأقسام (Many-to-Many)"""
     id: Optional[int] = Field(default=None, primary_key=True)
     tenant_id: int = Field(foreign_key="tenant.id", index=True)

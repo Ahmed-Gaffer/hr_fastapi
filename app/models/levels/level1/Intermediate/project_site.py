@@ -7,7 +7,7 @@ from typing import Optional
 from datetime import date
 
 
-class Project_Site(SQLModel, table=True):
+class Projectsite(SQLModel, table=True):
     """جدول وسيط يربط المشروع بالمواقع (Many-to-Many)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)

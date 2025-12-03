@@ -6,7 +6,7 @@ from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional
 
 
-class EmployeeDetails(SQLModel, table=True):
+class EmployeeDetailsUpdate(SQLModel, table=True):
     """تفاصيل إضافية للموظف (حالة اجتماعية، عنوان، إلخ)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -34,7 +34,7 @@ class EmployeeDetails(SQLModel, table=True):
 
 
 # 🟢 موديلات Create / Update
-class EmployeeDetailsCreate(SQLModel):
+class EmployeeDetailsUpdate(SQLModel):
     employee_id: int
     marital_status: Optional[str] = None
     spouse_name: Optional[str] = None

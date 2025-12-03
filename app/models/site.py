@@ -7,7 +7,7 @@ from typing import Optional, List
 from sqlalchemy import UniqueConstraint
 
 
-class Site(SQLModel, table=True):
+class SiteCreate(SQLModel, table=True):
     """الموقع"""
 
     __table_args__ = (UniqueConstraint("tenant_id", "name", name="uq_site_tenant_name"),)
@@ -32,7 +32,7 @@ class SiteCreate(SQLModel):
     location: Optional[str] = None
 
 
-class SiteUpdate(SQLModel):
+class SiteCreate(SQLModel):
     tenant_id: Optional[int] = None
     name: Optional[str] = None
     location: Optional[str] = None

@@ -5,7 +5,7 @@ from sqlmodel import SQLModel, Field, Relationship
 # File Name: Training_Project.py
 # -----------------------------------------
 
-class Training_Project(SQLModel, table=True):
+class Trainingproject(SQLModel, table=True):
     """جدول وسيط يربط التدريب بالمشروعات (Many-to-Many)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)

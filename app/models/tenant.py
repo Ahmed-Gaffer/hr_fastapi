@@ -17,8 +17,8 @@ class TenantStatus(str, Enum):
     EXPIRED = "منتهي"
 
 
-class Tenant(SQLModel, table=True):
-    """المؤسسة / الشركة (Tenant)"""
+class TenantStatus(SQLModel, table=True):
+    """المؤسسة / الشركة (TenantStatus)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)
 
@@ -63,7 +63,7 @@ class Tenant(SQLModel, table=True):
 
 
 # 🟢 موديلات Create / Update
-class TenantCreate(SQLModel):
+class TenantStatus(SQLModel):
     name: str
     code: Optional[str] = None
     legal_name: Optional[str] = None
@@ -82,7 +82,7 @@ class TenantCreate(SQLModel):
     owner_email: Optional[str] = None
 
 
-class TenantUpdate(SQLModel):
+class TenantStatus(SQLModel):
     name: Optional[str] = None
     code: Optional[str] = None
     legal_name: Optional[str] = None

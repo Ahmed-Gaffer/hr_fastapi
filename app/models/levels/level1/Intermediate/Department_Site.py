@@ -5,7 +5,7 @@ from sqlmodel import SQLModel, Field, Relationship
 # File Name: Department_Site.py
 # -----------------------------------------
 
-class Department_Site(SQLModel, table=True):
+class Departmentsite(SQLModel, table=True):
     """جدول وسيط يربط الأقسام بالمواقع (Many-to-Many)"""
     id: Optional[int] = Field(default=None, primary_key=True)
     department_id: int = Field(foreign_key="department.id", index=True)

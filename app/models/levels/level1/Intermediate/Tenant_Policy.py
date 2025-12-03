@@ -5,7 +5,7 @@ from sqlmodel import SQLModel, Field, Relationship
 # File Name: Tenant_Policy.py
 # -----------------------------------------
 
-class Tenant_Policy(SQLModel, table=True):
+class Tenantpolicy(SQLModel, table=True):
     """جدول وسيط يربط الشركة بالسياسات (Many-to-Many)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)

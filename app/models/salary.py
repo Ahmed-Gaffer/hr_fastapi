@@ -8,13 +8,13 @@ from enum import Enum
 from sqlmodel import SQLModel, Field, Relationship
 
 
-class PayrollCategory(str, Enum):
+class SalaryStatus(str, Enum):
     CATEGORY_A = "الفئة_الأولى"
     CATEGORY_B = "الفئة_الثانية"
     CATEGORY_C = "الفئة_الثالثة"
 
 
-class SalaryRecord(SQLModel, table=True):
+class SalaryStatus(SQLModel, table=True):
     """سجل الراتب (مع Tenant)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -27,7 +27,7 @@ class SalaryRecord(SQLModel, table=True):
     # 📅 الفترة
     salary_year: int
     salary_month: int
-    payroll_category: PayrollCategory = PayrollCategory.CATEGORY_A
+    payroll_category: SalaryStatus = SalaryStatus.CATEGORY_A
 
     # 💰 الاستحقاقات
     basic_salary: float = 0

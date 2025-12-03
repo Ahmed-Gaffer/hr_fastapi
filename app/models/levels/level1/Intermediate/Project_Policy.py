@@ -6,7 +6,7 @@ from datetime import date
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
-class Project_Policy(SQLModel, table=True):
+class Projectpolicy(SQLModel, table=True):
     """جدول وسيط يربط المشروع بالسياسات"""
     id: Optional[int] = Field(default=None, primary_key=True)
     project_id: int = Field(foreign_key="project.id", index=True)

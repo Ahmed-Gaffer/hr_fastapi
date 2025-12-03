@@ -5,7 +5,7 @@ from sqlmodel import SQLModel, Field, Relationship
 # File Name: Department_Policy.py
 # -----------------------------------------
 
-class Department_Policy(SQLModel, table=True):
+class Departmentpolicy(SQLModel, table=True):
     """جدول وسيط يربط الأقسام بالسياسات (Many-to-Many)"""
     id: Optional[int] = Field(default=None, primary_key=True)
     department_id: int = Field(foreign_key="department.id", index=True)

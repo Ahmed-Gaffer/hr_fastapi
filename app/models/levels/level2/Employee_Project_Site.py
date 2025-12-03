@@ -6,7 +6,7 @@ from datetime import date
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
-class Employee_Project_Site(SQLModel, table=True):
+class Employeeprojectsite(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالمشروع والموقع"""
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)

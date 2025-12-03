@@ -10,7 +10,7 @@ from sqlmodel import SQLModel, Field
 from typing import Optional
 
 
-class Employee_Asset_Project_Site(SQLModel, table=True):
+class Employeeassetprojectsite(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالأصل والمشروع والموقع (Many-to-Many)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)

@@ -5,7 +5,7 @@ from sqlmodel import SQLModel, Field, Relationship
 # File Name: Asset_Site.py
 # -----------------------------------------
 
-class Asset_Site(SQLModel, table=True):
+class Assetsite(SQLModel, table=True):
     """جدول وسيط يربط الأصل بالمواقع (Many-to-Many)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)

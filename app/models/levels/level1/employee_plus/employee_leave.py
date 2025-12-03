@@ -8,7 +8,7 @@ from datetime import date
 from enum import Enum
 
 
-class LeaveType(str, Enum):
+class Leavetype(str, Enum):
     """أنواع الإجازات"""
     ANNUAL = "سنوية"
     SICK = "مرضية"
@@ -17,7 +17,7 @@ class LeaveType(str, Enum):
     OTHER = "أخرى"
 
 
-class Employee_Leave(SQLModel, table=True):
+class Employeeleave(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالإجازات (Many-to-Many)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)

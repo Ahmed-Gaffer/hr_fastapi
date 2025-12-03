@@ -9,13 +9,13 @@ from enum import Enum
 
 
 # 🟢 Enums علشان تمنع إدخال قيم عشوائية
-class WorkStatus(str, Enum):
+class EmployeeStatus(str, Enum):
     ACTIVE = "يعمل"
     LEAVE = "اجازة بدون مرتب"
     STOPPED = "موقوف"
 
 
-class InsuranceStatus(str, Enum):
+class EmployeeStatus(str, Enum):
     INSURED = "مؤمن"
     NOT_INSURED = "غير مؤمن"
 
@@ -27,7 +27,7 @@ class EmployeeStatus(str, Enum):
 
 
 # 🧑 موديل الموظف
-class Employee(SQLModel, table=True):
+class EmployeeStatus(SQLModel, table=True):
     """الموظف"""
 
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -73,7 +73,7 @@ class Employee(SQLModel, table=True):
 
 
 # 🟢 موديلات Create / Update
-class EmployeeCreate(SQLModel):
+class EmployeeStatus(SQLModel):
     code: str
     name: str
     base_salary: float
@@ -90,7 +90,7 @@ class EmployeeCreate(SQLModel):
     status: Optional[EmployeeStatus] = None
 
 
-class EmployeeUpdate(SQLModel):
+class EmployeeStatus(SQLModel):
     code: Optional[str] = None
     name: Optional[str] = None
     base_salary: Optional[float] = None

@@ -7,7 +7,7 @@ from typing import Optional
 from datetime import date, time
 
 
-class Attendance(SQLModel, table=True):
+class AttendanceCreate(SQLModel, table=True):
     """سجل حضور الموظف"""
 
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -42,7 +42,7 @@ class AttendanceCreate(SQLModel):
     status: Optional[str] = None
 
 
-class AttendanceUpdate(SQLModel):
+class AttendanceCreate(SQLModel):
     employee_id: Optional[int] = None
     site_id: Optional[int] = None
     cost_center_id: Optional[int] = None

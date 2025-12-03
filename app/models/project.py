@@ -7,7 +7,7 @@ from typing import Optional, List
 from sqlalchemy import UniqueConstraint
 
 
-class Project(SQLModel, table=True):
+class ProjectCreate(SQLModel, table=True):
     """المشروع"""
 
     __table_args__ = (UniqueConstraint("tenant_id", "name", name="uq_project_tenant_name"),)
@@ -36,7 +36,7 @@ class ProjectCreate(SQLModel):
     description: Optional[str] = None
 
 
-class ProjectUpdate(SQLModel):
+class ProjectCreate(SQLModel):
     tenant_id: Optional[int] = None
     site_id: Optional[int] = None
     name: Optional[str] = None

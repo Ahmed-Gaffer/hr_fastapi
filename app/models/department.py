@@ -7,7 +7,7 @@ from typing import Optional, List
 from sqlalchemy import UniqueConstraint
 
 
-class Department(SQLModel, table=True):
+class DepartmentCreate(SQLModel, table=True):
     """جدول الأقسام"""
 
     __table_args__ = (UniqueConstraint("tenant_id", "name", name="uq_department_tenant_name"),)
@@ -31,7 +31,7 @@ class DepartmentCreate(SQLModel):
     description: Optional[str] = None
 
 
-class DepartmentUpdate(SQLModel):
+class DepartmentCreate(SQLModel):
     tenant_id: Optional[int] = None
     name: Optional[str] = None
     description: Optional[str] = None

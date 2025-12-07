@@ -10,6 +10,7 @@ import json
 
 class TaxPolicy(SQLModel, table=True):
     """سياسات ضريبية - شرائح متدرجة"""
+    __tablename__ = "tax_policy"
 
     id: Optional[int] = Field(default=None, primary_key=True)
 

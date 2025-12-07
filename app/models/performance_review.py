@@ -7,6 +7,7 @@ from sqlmodel import SQLModel, Field, Relationship
 
 class PerformanceReview(SQLModel, table=True):
     """تقييم الأداء"""
+    __tablename__ = "performance_review"
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)
 

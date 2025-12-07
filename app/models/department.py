@@ -9,6 +9,7 @@ from sqlalchemy import UniqueConstraint
 
 class Department(SQLModel, table=True):
     """جدول الأقسام"""
+    __tablename__ = "department"
 
     __table_args__ = (UniqueConstraint("tenant_id", "name", name="uq_department_tenant_name"),)
 

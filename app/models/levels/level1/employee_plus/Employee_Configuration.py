@@ -5,10 +5,11 @@
 from sqlmodel import SQLModel, Field
 from typing import Optional
 
-class Employee_Configuration(SQLModel, table=True):
-    """جدول وسيط يربط الموظف بالإعدادات"""
+class EmployeeConfiguration(SQLModel, table=True):
+    __tablename__ = "employee_configuration"
+
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)
-    config_id: int = Field(foreign_key="configuration.id", index=True)
+    company_config_id: int = Field(foreign_key="companyconfig.id", index=True)
 
-    value: Optional[str] = None
+    custom_value: Optional[str] = None

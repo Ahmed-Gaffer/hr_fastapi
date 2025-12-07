@@ -11,24 +11,24 @@ from .department import Department
 from .employee import Employee, WorkStatus, InsuranceStatus, EmployeeStatus
 from .employee_details import EmployeeDetails
 from .attendance import Attendance
-from .salary import SalaryRecord, PayrollCategory
+from .salary import Salary, PayrollCategory
 from .salary_component import SalaryComponent, ComponentType
 from .salary_config import SalaryConfig
 from .company_config import CompanyConfig
-from .benefit_record import BenefitRecord, BenefitType
-from .overtime_record import OvertimeRecord
+from .benefit import Benefit, BenefitType
+from .overtime import Overtime
 from .tax_policy import TaxPolicy
 from .user import User
 
 # 🟢 level1 → employee_plus
 from .levels.level1.employee_plus.Employee_AdvanceSalary import Employee_AdvanceSalary
 from .levels.level1.employee_plus.employee_asset import Employee_Asset
-from .levels.level1.employee_plus.Employee_AttendanceRecord import Employee_AttendanceRecord
-from .levels.level1.employee_plus.Employee_BenefitRecord import Employee_BenefitRecord
+from .levels.level1.employee_plus.Employee_Attendance import Employee_Attendance
+from .levels.level1.employee_plus.Employee_Benefit import Employee_Benefit
 from .levels.level1.employee_plus.employee_certification import Employee_Certification
 from .levels.level1.employee_plus.Employee_Configuration import Employee_Configuration
 from .levels.level1.employee_plus.Employee_CostCenter import Employee_CostCenter
-from .levels.level1.employee_plus.Employee_DeductionRecord import Employee_DeductionRecord
+from .levels.level1.employee_plus.Employee_Deduction import Employee_Deduction
 from .levels.level1.employee_plus.employee_department import Employee_Department
 from .levels.level1.employee_plus.Employee_Disciplinary import Employee_Disciplinary
 from .levels.level1.employee_plus.employee_leave import Employee_Leave, LeaveType
@@ -39,7 +39,7 @@ from .levels.level1.employee_plus.employee_project import Employee_Project
 from .levels.level1.employee_plus.Employee_PublicHoliday import Employee_PublicHoliday
 from .levels.level1.employee_plus.Employee_Reward import Employee_Reward
 from .levels.level1.employee_plus.employee_role import Employee_Role
-from .levels.level1.employee_plus.Employee_SalaryRecord import Employee_SalaryRecord
+from .levels.level1.employee_plus.Employee_Salary import Employee_Salary
 from .levels.level1.employee_plus.employee_skill import Employee_Skill
 from .levels.level1.employee_plus.Employee_Tenant import Employee_Tenant
 from .levels.level1.employee_plus.employee_training import Employee_Training

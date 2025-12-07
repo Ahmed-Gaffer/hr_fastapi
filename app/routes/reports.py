@@ -5,7 +5,7 @@
 from fastapi import APIRouter, Depends
 from sqlmodel import Session, select, func
 from app.database import get_session
-from app.models.salary import SalaryRecord
+from app.models.salary import Salary
 from app.models.attendance import Attendance
 from app.models.employee import Employee
 
@@ -16,8 +16,8 @@ def salary_report(session: Session = Depends(get_session)):
     """تقرير مجموع الرواتب حسب الشهر"""
     rows = session.exec(
         select(
-            func.strftime("%Y-%m", SalaryRecord.paid_date).label("month"),
-            func.sum(SalaryRecord.amount).label("total")
+            func.strftime("%Y-%m", Salary.paid_date).label("month"),
+            func.sum(Salary.amount).label("total")
         )
         .group_by("month")
         .order_by("month")

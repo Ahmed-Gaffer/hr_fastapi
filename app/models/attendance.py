@@ -9,6 +9,7 @@ from datetime import date, time
 
 class Attendance(SQLModel, table=True):
     """سجل حضور الموظف"""
+    __tablename__ = "attendance"
 
     id: Optional[int] = Field(default=None, primary_key=True)
 

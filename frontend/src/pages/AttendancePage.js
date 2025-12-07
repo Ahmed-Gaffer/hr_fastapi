@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogTitle, DialogContent, TextField, CircularProgress } from '@mui/material';
-import { fetchAttendanceRecords, recordAttendance } from '../services/api';
+import { fetchAttendances, Attendance } from '../services/api';
 import AddIcon from '@mui/icons-material/Add';
 import { format } from 'date-fns';
 import { ar } from 'date-fns/locale';
 
 export default function AttendancePage() {
-  const [records, setRecords] = useState([]);
+  const [s, sets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({ employee_id: '', date: '', status: 'حاضر' });
 
   useEffect(() => {
-    fetchAttendanceRecords()
+    fetchAttendances()
       .then(data => {
-        setRecords(data);
+        sets(data);
         setLoading(false);
       })
       .catch(err => {
@@ -23,10 +23,10 @@ export default function AttendancePage() {
       });
   }, []);
 
-  const handleAddRecord = async () => {
+  const handleAdd = async () => {
     try {
-      const newRecord = await recordAttendance(formData);
-      setRecords([...records, newRecord]);
+      const new = await Attendance(formData);
+      sets([...s, new]);
       setOpen(false);
       setFormData({ employee_id: '', date: '', status: 'حاضر' });
     } catch (err) {
@@ -55,7 +55,7 @@ export default function AttendancePage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {records.map((r) => (
+            {s.map((r) => (
               <TableRow key={r.id}>
                 <TableCell>{r.employee_name}</TableCell>
                 <TableCell>{format(new Date(r.date), 'dd/MM/yyyy', { locale: ar })}</TableCell>
@@ -103,7 +103,7 @@ export default function AttendancePage() {
             <option value="إجازة">إجازة</option>
           </TextField>
           <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
-            <Button variant="contained" onClick={handleAddRecord} fullWidth>
+            <Button variant="contained" onClick={handleAdd} fullWidth>
               حفظ
             </Button>
             <Button variant="outlined" onClick={() => setOpen(false)} fullWidth>

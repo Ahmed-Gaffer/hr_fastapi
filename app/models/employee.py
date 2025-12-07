@@ -29,6 +29,7 @@ class EmployeeStatus(str, Enum):
 # 🧑 موديل الموظف
 class Employee(SQLModel, table=True):
     """الموظف"""
+    __tablename__ = "employee"
 
     id: Optional[int] = Field(default=None, primary_key=True)
 
@@ -67,7 +68,7 @@ class Employee(SQLModel, table=True):
     department: Optional["Department"] = Relationship(back_populates="employees")
 
     attendances: List["Attendance"] = Relationship(back_populates="employee")
-    salaries: List["SalaryRecord"] = Relationship(back_populates="employee")
+    salaries: List["Salary"] = Relationship(back_populates="employee")
     details: Optional["EmployeeDetails"] = Relationship(back_populates="employee")
     trainings: List["EmployeeTraining"] = Relationship(back_populates="employee")
 

@@ -1,5 +1,5 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/benefit_record.py
-# File Name: benefit_record.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/benefit.py
+# File Name: benefit.py
 # -----------------------------------------
 
 from sqlmodel import SQLModel, Field
@@ -9,17 +9,18 @@ from enum import Enum
 
 class BenefitType(str, Enum):
     """نوع البدلة"""
+    __tablename__ = "benefit"
     IN_KIND_MEALS = "وجبات"
     IN_KIND_TRANSPORT = "مواصلات"
     IN_KIND_TRAVEL = "سفر"
     CASH_ALLOWANCE = "بدلة نقدية"
 
 
-class BenefitRecord(SQLModel, table=True):
+class Benefit(SQLModel, table=True):
     """تسجيل البدلات (في النوع والقيمة)"""
-
+    __tablename__ = "benefit"
     id: Optional[int] = Field(default=None, primary_key=True)
-    salary_record_id: int = Field(foreign_key="salaryrecord.id", index=True)
+    salary_id: int = Field(foreign_key="salary.id", index=True)
 
     benefit_type: BenefitType
     description: str

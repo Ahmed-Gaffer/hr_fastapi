@@ -14,8 +14,10 @@ class PayrollCategory(str, Enum):
     CATEGORY_C = "الفئة_الثالثة"
 
 
-class SalaryRecord(SQLModel, table=True):
+class Salary(SQLModel, table=True):
     """سجل الراتب (مع Tenant)"""
+
+    __tablename__ = "salary"
 
     id: Optional[int] = Field(default=None, primary_key=True)
 

@@ -1,5 +1,5 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/overtime_record.py
-# File Name: overtime_record.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/overtime.py
+# File Name: overtime.py
 # -----------------------------------------
 
 from sqlmodel import SQLModel, Field
@@ -7,11 +7,12 @@ from typing import Optional
 from datetime import datetime
 
 
-class OvertimeRecord(SQLModel, table=True):
+class Overtime(SQLModel, table=True):
     """ساعات عمل إضافية (نهاري وليلي)"""
+    __tablename__ = "overtime"
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    salary_record_id: int = Field(foreign_key="salaryrecord.id", index=True)
+    salary_id: int = Field(foreign_key="salary.id", index=True)
 
     # ⏰ نهاري
     day_hours: float = 0

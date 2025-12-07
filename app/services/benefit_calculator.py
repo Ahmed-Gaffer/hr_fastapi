@@ -3,8 +3,8 @@
 # -----------------------------------------
 
 from sqlmodel import Session, select
-from app.models.salary import SalaryRecord
-from app.models.benefit_record import BenefitRecord, BenefitType
+from app.models.salary import Salary
+from app.models.benefit import Benefit, BenefitType
 
 class BenefitCalculator:
     """حساب البدلات (عينية ونقدية)"""
@@ -12,15 +12,15 @@ class BenefitCalculator:
     def __init__(self, session: Session):
         self.session = session
     
-    def separate_benefits(self, salary_record_id: int) -> dict:
+    def separate_benefits(self, salary_id: int) -> dict:
         """فصل البدلات العينية عن النقدية"""
         
         salary = self.session.exec(
-            select(SalaryRecord).where(SalaryRecord.id == salary_record_id)
+            select(Salary).where(Salary.id == salary_id)
         ).first()
         
         if not salary:
-            raise Exception(f"سجل راتب {salary_record_id} غير موجود")
+            raise Exception(f"سجل راتب {salary_id} غير موجود")
         
         # البدلات العينية (تُضاف ثم تُخصم)
         in_kind_benefits = {

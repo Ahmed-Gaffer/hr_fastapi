@@ -1,7 +1,3 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/salary_component.py
-# File Name: salary_component.py
-# -----------------------------------------
-
 from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import datetime
@@ -10,6 +6,7 @@ from enum import Enum
 
 class ComponentType(str, Enum):
     """أنواع البنود الإضافية (مرونة للمستقبل)"""
+
     EXTRA_HOURS = "ساعات_إضافية"
     NIGHT_SHIFT = "عمل_ليلي"
     PERFORMANCE_BONUS = "مكافأة_أداء"
@@ -22,8 +19,15 @@ class ComponentType(str, Enum):
 class SalaryComponent(SQLModel, table=True):
     """بنود إضافية ومتغيرة في الراتب (ساعات إضافية، مكافآت، خصومات خاصة)"""
 
+    __tablename__ = "salary_component"
+
     id: Optional[int] = Field(default=None, primary_key=True)
-    salary_record_id: int = Field(foreign_key="salaryrecord.id", index=True)
+
+    # ✅ تصحيح اسم الجدول المرتبط
+    salary_id: int = Field(
+        foreign_key="salary.id",
+        index=True
+    )
 
     component_type: ComponentType  # نوع البند
     description: str  # وصف (مثلاً: "ساعات إضافية نهارية - 10 ساعات")

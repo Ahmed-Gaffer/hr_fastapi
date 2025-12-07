@@ -19,6 +19,7 @@ class TenantStatus(str, Enum):
 
 class Tenant(SQLModel, table=True):
     """المؤسسة / الشركة (Tenant)"""
+    __tablename__ = "tenant"
 
     id: Optional[int] = Field(default=None, primary_key=True)
 
@@ -58,7 +59,7 @@ class Tenant(SQLModel, table=True):
     projects: List["Project"] = Relationship(back_populates="tenant")
     departments: List["Department"] = Relationship(back_populates="tenant")
     cost_centers: List["CostCenter"] = Relationship(back_populates="tenant")
-    salaries: List["SalaryRecord"] = Relationship(back_populates="tenant")
+    salaries: List["Salary"] = Relationship(back_populates="tenant")
     attendances: List["Attendance"] = Relationship(back_populates="tenant")
 
 

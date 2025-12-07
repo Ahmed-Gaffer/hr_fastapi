@@ -7,6 +7,7 @@ from typing import Optional
 
 
 class EmployeeDetails(SQLModel, table=True):
+    __tablename__ = "employee_details"
     """تفاصيل إضافية للموظف (حالة اجتماعية، عنوان، إلخ)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)

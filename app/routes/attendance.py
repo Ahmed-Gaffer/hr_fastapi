@@ -16,16 +16,16 @@ router = APIRouter(prefix="/attendance", tags=["attendance"])
 # دالة تعرض الحضور كـ HTML (لـ HTMX)
 @router.get("/list", response_class=HTMLResponse)
 def list_attendance_htmx(session: Session = Depends(get_session)):
-    records = session.exec(select(Attendance)).all()  # جلب كل سجلات الحضور
+    s = session.exec(select(Attendance)).all()  # جلب كل سجلات الحضور
 
     # بناء HTML بسيط لعرضهم
     html = "<ul class='space-y-2'>"
-    for record in records:
+    for  in s:
         # عرض اسم الموظف وتاريخ الحضور ووقت الدخول والخروج
         html += (
             f"<li class='p-2 border rounded bg-gray-50'>"
-            f"📅 {record.date} - 👤 موظف رقم {record.employee_id} "
-            f"- دخول: {record.check_in} - خروج: {record.check_out}</li>"
+            f"📅 {.date} - 👤 موظف رقم {.employee_id} "
+            f"- دخول: {.check_in} - خروج: {.check_out}</li>"
         )
     html += "</ul>"
     return html
@@ -41,7 +41,7 @@ def check_in(att: Attendance, session: Session = Depends(get_session)):
 # دالة لعرض كل سجلات الحضور
 @router.get("/", response_model=list[Attendance])
 def list_attendance(session: Session = Depends(get_session)):
-    records = session.exec(select(Attendance)).all()
+    s = session.exec(select(Attendance)).all()
     return [
         {
             "id": r.id,
@@ -51,5 +51,5 @@ def list_attendance(session: Session = Depends(get_session)):
             "date": r.date,
             "status": r.status,
         }
-        for r in records
+        for r in s
     ]

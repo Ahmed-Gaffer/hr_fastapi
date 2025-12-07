@@ -8,6 +8,7 @@ from datetime import date
 
 class PublicHoliday(SQLModel, table=True):
     """الإجازات الرسمية للشركة أو الدولة"""
+    __tablename__ = "public_holiday"
     id: Optional[int] = Field(default=None, primary_key=True)
     tenant_id: int = Field(foreign_key="tenant.id", index=True)
 

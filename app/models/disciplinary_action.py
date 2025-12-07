@@ -7,6 +7,8 @@ from sqlmodel import SQLModel, Field, Relationship
 
 class DisciplinaryAction(SQLModel, table=True):
     """العقوبات والجزاءات"""
+    __tablename__ = "disciplinary_action"
+    
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)
 

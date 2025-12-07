@@ -8,7 +8,7 @@ import re
 from sqlmodel import Session, select
 from datetime import datetime
 from app.models.employee import Employee
-from app.models.salary import SalaryRecord
+from app.models.salary import Salary
 from app.services.helpers import clean_value, parse_date
 from app.services.headers import SALARY_HEADERS
 from app.services.imports.base_importer import BaseImporter
@@ -73,10 +73,10 @@ class SalaryImporter(BaseImporter):
                     return float(s) if s else 0.0
 
                 exists = session.exec(
-                    select(SalaryRecord).where(
-                        (SalaryRecord.employee_id == emp.id) &
-                        (SalaryRecord.salary_year == year) &
-                        (SalaryRecord.salary_month == month)
+                    select(Salary).where(
+                        (Salary.employee_id == emp.id) &
+                        (Salary.salary_year == year) &
+                        (Salary.salary_month == month)
                     )
                 ).first()
                 if exists:
@@ -84,7 +84,7 @@ class SalaryImporter(BaseImporter):
                     report["warnings"].append(f"صف #{idx}: سجل مرتب موجود مسبقًا")
                     continue
 
-                sal = SalaryRecord(
+                sal = Salary(
                     employee_id=emp.id,
                     salary_year=year,
                     salary_month=month,

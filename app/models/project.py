@@ -9,6 +9,7 @@ from sqlalchemy import UniqueConstraint
 
 class Project(SQLModel, table=True):
     """المشروع"""
+    __tablename__ = "project"
 
     __table_args__ = (UniqueConstraint("tenant_id", "name", name="uq_project_tenant_name"),)
 

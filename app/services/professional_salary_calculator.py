@@ -5,7 +5,7 @@
 from datetime import datetime, date
 from sqlmodel import Session, select
 from app.models.employee import Employee
-from app.models.salary import SalaryRecord, PayrollCategory
+from app.models.salary import Salary, PayrollCategory
 from app.models.salary_config import SalaryConfig
 from app.services.tax_engine import compute_tax_for_date
 
@@ -15,15 +15,15 @@ class ProfessionalSalaryCalculator:
     def __init__(self, session: Session):
         self.session = session
     
-    def calculate(self, salary_record_id: int) -> dict:
+    def calculate(self, salary_id: int) -> dict:
         """حساب شامل للراتب"""
         
         salary = self.session.exec(
-            select(SalaryRecord).where(SalaryRecord.id == salary_record_id)
+            select(Salary).where(Salary.id == salary_id)
         ).first()
         
         if not salary:
-            raise Exception(f"سجل الراتب {salary_record_id} غير موجود")
+            raise Exception(f"سجل الراتب {salary_id} غير موجود")
         
         emp = self.session.exec(
             select(Employee).where(Employee.id == salary.employee_id)

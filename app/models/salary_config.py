@@ -8,6 +8,7 @@ from typing import Optional
 
 class SalaryConfig(SQLModel, table=True):
     """إعدادات الرواتب والضرائب (سنة وشركة)"""
+    __tablename__ = "salary_config"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     year: int = Field(index=True)

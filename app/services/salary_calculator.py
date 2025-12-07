@@ -5,7 +5,7 @@
 from datetime import datetime, date
 from sqlmodel import Session, select
 from app.models.employee import Employee
-from app.models.salary import SalaryRecord
+from app.models.salary import Salary
 
 class TaxConfig:
     """معادلات الضرائب والتأمينات المصرية 2024-2025"""

@@ -6,12 +6,13 @@ from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
 from sqlalchemy import UniqueConstraint
 
-from app.models.salary import SalaryRecord
+from app.models.salary import Salary
 
 
 
 class CostCenter(SQLModel, table=True):
     """مركز التكلفة"""
+    __tablename__ = "cost_center"
 
     __table_args__ = (UniqueConstraint("project_id", "name", name="uq_costcenter_project_name"),)
 
@@ -29,7 +30,7 @@ class CostCenter(SQLModel, table=True):
     tenant: "Tenant" = Relationship(back_populates="cost_centers")
     site: Optional["Site"] = Relationship(back_populates="cost_centers")
     employees: List["Employee"] = Relationship(back_populates="cost_center")
-    salaries: List["SalaryRecord"] = Relationship(back_populates="cost_center")
+    salaries: List["Salary"] = Relationship(back_populates="cost_center")
 
 
 # 🟢 موديلات Create / Update

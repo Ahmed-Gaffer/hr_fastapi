@@ -41,7 +41,7 @@ export async function fetchEmployee(id) {
 }
 
 // ======================= Attendance =======================
-export async function fetchAttendanceRecords() {
+export async function fetchAttendances() {
   try {
     const res = await axiosInstance.get("/attendance");
     return res.data.map((r) => ({
@@ -51,12 +51,12 @@ export async function fetchAttendanceRecords() {
       status: r.status || "حاضر",
     }));
   } catch (err) {
-    console.error("fetchAttendanceRecords error:", err.response ? err.response.data : err.message);
+    console.error("fetchAttendances error:", err.response ? err.response.data : err.message);
     return [];
   }
 }
 
-export async function recordAttendance(data) {
+export async function Attendance(data) {
   try {
     const res = await axiosInstance.post("/attendance", data);
     return res.data;

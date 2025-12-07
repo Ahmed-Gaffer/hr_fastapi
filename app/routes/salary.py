@@ -5,7 +5,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 from app.database import get_session
-from app.models.salary import SalaryRecord
+from app.models.salary import Salary
 from app.models.salary import PayrollCategory
 from app.models.tenant import Tenant
 from app.dependencies.dependencies import get_current_tenant
@@ -13,49 +13,49 @@ from app.dependencies.dependencies import get_current_tenant
 router = APIRouter(prefix="/salary", tags=["salary"])
 
 # 🔹 إضافة سجل راتب جديد
-@router.post("/", response_model=SalaryRecord)
+@router.post("/", response_model=Salary)
 async def create_salary(
-    record: SalaryRecord,
+    : Salary,
     session: Session = Depends(get_session),
     tenant: Tenant = Depends(get_current_tenant)
 ):
     """إضافة سجل راتب جديد لموظف"""
-    record.tenant_id = tenant.id
-    session.add(record)
+    .tenant_id = tenant.id
+    session.add()
     session.commit()
-    session.refresh(record)
-    return record
+    session.refresh()
+    return 
 
 # 🔹 عرض كل الرواتب للشركة
-@router.get("/", response_model=list[SalaryRecord])
+@router.get("/", response_model=list[Salary])
 async def list_salaries(
     session: Session = Depends(get_session),
     tenant: Tenant = Depends(get_current_tenant)
 ):
     """عرض كل الرواتب للشركة الحالية"""
-    return session.exec(select(SalaryRecord).where(SalaryRecord.tenant_id == tenant.id)).all()
+    return session.exec(select(Salary).where(Salary.tenant_id == tenant.id)).all()
 
 # 🔹 عرض راتب واحد
-@router.get("/{salary_id}", response_model=SalaryRecord)
+@router.get("/{salary_id}", response_model=Salary)
 async def get_salary(
     salary_id: int,
     session: Session = Depends(get_session),
     tenant: Tenant = Depends(get_current_tenant)
 ):
-    sal = session.exec(select(SalaryRecord).where(SalaryRecord.id == salary_id)).first()
+    sal = session.exec(select(Salary).where(Salary.id == salary_id)).first()
     if not sal or sal.tenant_id != tenant.id:
         raise HTTPException(status_code=404, detail="الراتب غير موجود")
     return sal
 
 # 🔹 تعديل راتب
-@router.put("/{salary_id}", response_model=SalaryRecord)
+@router.put("/{salary_id}", response_model=Salary)
 async def update_salary(
     salary_id: int,
-    data: SalaryRecord,
+    data: Salary,
     session: Session = Depends(get_session),
     tenant: Tenant = Depends(get_current_tenant)
 ):
-    sal = session.exec(select(SalaryRecord).where(SalaryRecord.id == salary_id)).first()
+    sal = session.exec(select(Salary).where(Salary.id == salary_id)).first()
     if not sal or sal.tenant_id != tenant.id:
         raise HTTPException(status_code=404, detail="الراتب غير موجود")
 
@@ -75,7 +75,7 @@ async def delete_salary(
     session: Session = Depends(get_session),
     tenant: Tenant = Depends(get_current_tenant)
 ):
-    sal = session.exec(select(SalaryRecord).where(SalaryRecord.id == salary_id)).first()
+    sal = session.exec(select(Salary).where(Salary.id == salary_id)).first()
     if not sal or sal.tenant_id != tenant.id:
         raise HTTPException(status_code=404, detail="الراتب غير موجود")
     session.delete(sal)

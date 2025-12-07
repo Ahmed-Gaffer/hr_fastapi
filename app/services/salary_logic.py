@@ -6,7 +6,7 @@
 from sqlmodel import Session, select
 from app.database import engine
 from app.models.attendance import Attendance
-from app.models.salary import SalaryRecord
+from app.models.salary import Salary
 
 # دالة لحساب المرتب لموظف معين في شهر معين
 def calculate_salary(employee_id: int, month: str, base_salary: float, deduction_per_day: float):
@@ -33,7 +33,7 @@ def calculate_salary(employee_id: int, month: str, base_salary: float, deduction
         net_salary = base_salary - deductions
 
         # إنشاء سجل المرتب
-        salary = SalaryRecord(
+        salary = Salary(
             employee_id=employee_id,
             month=month,
             base_salary=base_salary,

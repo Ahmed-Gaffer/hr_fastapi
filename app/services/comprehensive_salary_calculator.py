@@ -5,8 +5,8 @@
 from datetime import datetime, date
 from sqlmodel import Session, select
 from app.models.employee import Employee
-from app.models.salary import SalaryRecord
-from app.models.overtime_record import OvertimeRecord
+from app.models.salary import Salary
+from app.models.overtime import Overtime
 from app.services.insurance_calculator import InsuranceCalculator
 from app.services.benefit_calculator import BenefitCalculator
 from app.services.tax_engine import compute_tax_for_date
@@ -17,15 +17,15 @@ class ComprehensiveSalaryCalculator:
     def __init__(self, session: Session):
         self.session = session
     
-    def calculate(self, salary_record_id: int) -> dict:
+    def calculate(self, salary_id: int) -> dict:
         """حساب راتب كامل مع كل التفاصيل"""
         
         salary = self.session.exec(
-            select(SalaryRecord).where(SalaryRecord.id == salary_record_id)
+            select(Salary).where(Salary.id == salary_id)
         ).first()
         
         if not salary:
-            raise Exception(f"سجل الراتب {salary_record_id} غير موجود")
+            raise Exception(f"سجل الراتب {salary_id} غير موجود")
         
         emp = self.session.exec(
             select(Employee).where(Employee.id == salary.employee_id)
@@ -48,7 +48,7 @@ class ComprehensiveSalaryCalculator:
         # ملاحظة: يفترض أن extra_hours_value محسوبة بالفعل، لو في تفصيل أكتر نحتاج حقل آخر للساعات الليلية
         
         # 2️⃣ فصل البدلات
-        benefits = benefit_calc.separate_benefits(salary_record_id)
+        benefits = benefit_calc.separate_benefits(salary_id)
         in_kind_total = benefits["in_kind"]["total"]
         cash_benefits = benefits["cash"]["allowances"]
         

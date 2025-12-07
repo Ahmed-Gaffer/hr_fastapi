@@ -7,6 +7,8 @@ from sqlmodel import SQLModel, Field, Relationship
 
 class AdvanceSalary(SQLModel, table=True):
     """سلف الموظفين"""
+    __tablename__ = "advance_salary"
+
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)
 

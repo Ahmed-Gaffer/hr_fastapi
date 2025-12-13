@@ -6,13 +6,13 @@ from typing import Generator
 from sqlmodel import SQLModel, create_engine, Session
 import os
 
-# حاول الحصول على DATABASE_uRL من إعدادات المشروع، عدّل إذا مسارك مختلف
+# حاول الحصول على DATABASE_URL من إعدادات المشروع، عدّل إذا مسارك مختلف
 try:
-    from app.core.config import DATABASE_uRL
+    from app.core.config import DATABASE_URL
 except Exception:
-    DATABASE_uRL = os.environ.get("DATABASE_uRL", "sqlite:///./dev.db")
+    DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///./dev.db")
 
-engine = create_engine(DATABASE_uRL, echo=True)
+engine = create_engine(DATABASE_URL, echo=True)
 
 def create_db_and_tables() -> None:
     """Create tables from SQLModel metadata."""

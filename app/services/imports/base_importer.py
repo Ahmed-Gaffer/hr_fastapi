@@ -4,7 +4,10 @@
 
 
 
+# app/services/imports/base_importer.py
+
 from datetime import datetime
+import traceback
 
 class BaseImporter:
     def new_report(self, file_id: str, dry_run: bool):
@@ -25,7 +28,8 @@ class BaseImporter:
         return report
 
     def safe_rollback(self, session):
+        print("⚠️ Rolling back transaction...")
         try:
             session.rollback()
-        except:
-            pass
+        except Exception:
+            traceback.print_exc()

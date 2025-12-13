@@ -7,4 +7,4 @@
 # هذا الملف يحتوي على إعدادات المشروع
 
 # رابط قاعدة البيانات باستخدام SQLite
-DATABASE_uRL = "sqlite:///./hr.db"
+DATABASE_URL = "sqlite:///./hr.db"

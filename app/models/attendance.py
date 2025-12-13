@@ -24,6 +24,7 @@ class Attendance(SQLModel, table=True):
     tenant_id: int = Field(foreign_key="tenant.id", index=True)  # المؤسسة / الشركة (Tenant)
 
     # 🕒 بيانات الحضور
+    shift: Optional[str] = None
     date: date
     check_in: Optional[time] = None
     check_out: Optional[time] = None
@@ -34,6 +35,8 @@ class Attendance(SQLModel, table=True):
     site: Optional["Site"] = Relationship(back_populates="attendances")
     cost_center: Optional["CostCenter"] = Relationship(back_populates="attendances")
     tenant: "Tenant" = Relationship(back_populates="attendances")
+
+    
 
 
 # 🟢 موديلات Create / Update

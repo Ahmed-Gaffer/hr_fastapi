@@ -4,9 +4,13 @@
 
 
 
+# app/services/imports/employees.py
+
 import io
-from sqlmodel import Session, select
+import traceback
 from datetime import datetime
+from sqlmodel import Session, select
+
 from app.models.employee import Employee
 from app.models.tenant import Tenant
 from app.models.site import Site
@@ -17,108 +21,109 @@ from app.services.cleaners import clean_employee_data
 
 class EmployeeImporter:
     def run(self, session: Session, stream: bytes, commit: bool, allow_create_tenant: bool):
-        # قراءة + تنظيف البيانات
-        df = clean_employee_data(io.BytesIO(stream))
+        try:
+            df = clean_employee_data(io.BytesIO(stream))
+            print("📄 Excel columns:", df.columns.tolist())
 
-        required = ["code", "name"]
-        for col in required:
-            if col not in df.columns:
-                return {"status": "error", "detail": f"عمود {col} غير موجود"}
+            required = ["code", "name"]
+            for col in required:
+                if col not in df.columns:
+                    raise ValueError(f"عمود {col} غير موجود")
 
-        imported, skipped = 0, 0
-        report_rows = []
+            imported, skipped = 0, 0
+            report_rows = []
 
-        for _, row in df.iterrows():
-            code = str(row.get("code")).strip()
-            name = str(row.get("name")).strip()
-            company_name = row.get("company_name")
+            for idx, row in df.iterrows():
+                try:
+                    print(f"➡️ Processing row {idx}: {row.to_dict()}")
 
-            # 🔹 البحث عن الشركة (Tenant)
-            tenant = None
-            if company_name:
-                tenant = session.exec(select(Tenant).where(Tenant.name == company_name)).first()
-                if not tenant and allow_create_tenant:
-                    tenant = Tenant(name=company_name, code=f"auto-{company_name}")
-                    session.add(tenant)
-                    session.flush()   # بدل commit
-            if not tenant:
-                skipped += 1
-                report_rows.append({"code": code, "reason": "لا توجد شركة/company_name"})
-                continue
+                    code = str(row.get("code")).strip()
+                    name = str(row.get("name")).strip()
+                    company_name = row.get("company_name")
 
-            # 🔹 منع التكرار
-            exists = session.exec(
-                select(Employee).where(Employee.tenant_id == tenant.id, Employee.code == code)
-            ).first()
-            if exists:
-                skipped += 1
-                report_rows.append({"code": code, "reason": "كود مكرر"})
-                continue
+                    tenant = None
+                    if company_name:
+                        tenant = session.exec(
+                            select(Tenant).where(Tenant.name == company_name)
+                        ).first()
+                        if not tenant and allow_create_tenant:
+                            tenant = Tenant(name=company_name, code=f"auto-{company_name}")
+                            session.add(tenant)
+                            session.flush()
 
-            # 🔹 الموقع (Site)
-            site = None
-            site_name = row.get("site_name")
-            if site_name:
-                site = session.exec(
-                    select(Site).where(Site.name == site_name, Site.tenant_id == tenant.id)
-                ).first()
-                if not site:
-                    site = Site(name=site_name, tenant_id=tenant.id)
-                    session.add(site)
-                    session.flush()
+                    if not tenant:
+                        skipped += 1
+                        report_rows.append({"row": idx, "reason": "tenant not found"})
+                        continue
 
-            # 🔹 مركز التكلفة / المشروع (Project)
-            project = None
-            cost_center_name = row.get("cost_center")
-            if cost_center_name:
-                project = session.exec(
-                    select(Project).where(Project.name == cost_center_name, Project.tenant_id == tenant.id)
-                ).first()
-                if not project:
-                    project = Project(
-                        name=cost_center_name,
+                    exists = session.exec(
+                        select(Employee).where(
+                            Employee.tenant_id == tenant.id,
+                            Employee.code == code
+                        )
+                    ).first()
+                    if exists:
+                        skipped += 1
+                        continue
+
+                    site = None
+                    if row.get("site_name"):
+                        site = session.exec(
+                            select(Site).where(
+                                Site.name == row.get("site_name"),
+                                Site.tenant_id == tenant.id
+                            )
+                        ).first()
+
+                    project = None
+                    if row.get("cost_center"):
+                        project = session.exec(
+                            select(Project).where(
+                                Project.name == row.get("cost_center"),
+                                Project.tenant_id == tenant.id
+                            )
+                        ).first()
+
+                    department = None
+                    if row.get("department"):
+                        department = session.exec(
+                            select(Department).where(
+                                Department.name == row.get("department"),
+                                Department.tenant_id == tenant.id
+                            )
+                        ).first()
+
+                    emp = Employee(
                         tenant_id=tenant.id,
-                        site_id=site.id if site else None
+                        site_id=site.id if site else None,
+                        project_id=project.id if project else None,
+                        department_id=department.id if department else None,
+                        code=code,
+                        name=name,
+                        created_at=datetime.utcnow(),
+                        updated_at=datetime.utcnow()
                     )
-                    session.add(project)
-                    session.flush()
 
-            # 🔹 القسم (Department)
-            department = None
-            dept_name = row.get("department")
-            if dept_name:
-                department = session.exec(
-                    select(Department).where(Department.name == dept_name, Department.tenant_id == tenant.id)
-                ).first()
-                if not department:
-                    department = Department(name=dept_name, tenant_id=tenant.id)
-                    session.add(department)
-                    session.flush()
+                    session.add(emp)
+                    imported += 1
 
-            # 🔹 إنشاء الموظف وربطه بالـ IDs
-            emp = Employee(
-                tenant_id=tenant.id,
-                site_id=site.id if site else None,
-                project_id=project.id if project else None,
-                department_id=department.id if department else None,
-                code=code,
-                name=name,
-                national_id=row.get("national_id"),
-                job_title=row.get("job_title"),
-                hire_date=row.get("hire_date"),
-                insurance_status=row.get("insurance_status"),
-                employee_category=row.get("employee_category"),
-                work_status=row.get("work_status"),
-                base_salary=float(row.get("base_salary") or 0),
-                status=row.get("work_status") or "نشط",
-                created_at=datetime.utcnow(),
-                updated_at=datetime.utcnow()
-            )
-            session.add(emp)
-            imported += 1
+                except Exception:
+                    print(f"❌ Error in row {idx}")
+                    traceback.print_exc()
+                    skipped += 1
 
-        # 🔹 commit مرة واحدة في الآخر
-        if commit:
-            session.commit()
+            if commit:
+                session.commit()
 
-        return {"status": "ok", "imported": imported, "skipped": skipped, "rows": report_rows}
+            return {
+                "status": "ok",
+                "imported": imported,
+                "skipped": skipped,
+                "rows": report_rows
+            }
+
+        except Exception:
+            print("🔥 Fatal error during employee import")
+            traceback.print_exc()
+            session.rollback()
+            raise

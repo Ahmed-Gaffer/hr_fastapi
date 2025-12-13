@@ -15,10 +15,10 @@ app = FastAPI(title="HR FastAPI")
 app.include_router(api_router, prefix="/api")
 
 # ✅ Serve static files من الـ frontend لو موجود
-BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "build"))
-STATIC_DIR = os.path.join(BUILD_DIR, "static")
-if os.path.isdir(STATIC_DIR):
-    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+BUILD_dIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "build"))
+STATIC_dIR = os.path.join(BUILD_dIR, "static")
+if os.path.isdir(STATIC_dIR):
+    app.mount("/static", StaticFiles(directory=STATIC_dIR), name="static")
 
 # ✅ إعدادات CORS
 app.add_middleware(

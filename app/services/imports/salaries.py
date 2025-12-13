@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\imports\salaries.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/services\imports\salaries.py
 # File Name: salaries.py
 # -----------------------------------------
+
+
 
 # app/services/imports/salaries.py
 import pandas as pd
@@ -10,7 +12,7 @@ from datetime import datetime
 from app.models.employee import Employee
 from app.models.salary import Salary
 from app.services.helpers import clean_value, parse_date
-from app.services.headers import SALARY_HEADERS
+from app.services.headers import SALARY_hEADERS
 from app.services.imports.base_importer import BaseImporter
 from app.services.cleaners import clean_salary_data  # ← إضافة
 
@@ -23,7 +25,7 @@ class SalaryImporter(BaseImporter):
             # قراءة + تنظيف
             df = clean_salary_data(stream)
             # توحيد أسماء الأعمدة حسب الهيدر
-            df.rename(columns={k: v for k, v in SALARY_HEADERS.items() if k in df.columns}, inplace=True)
+            df.rename(columns={k: v for k, v in SALARY_hEADERS.items() if k in df.columns}, inplace=True)
 
             seen = set()
             for idx, row in df.iterrows():

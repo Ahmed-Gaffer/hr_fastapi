@@ -1,18 +1,22 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\models\levels\level4\Employee_Training_Certification_Project_Site.py
-# File Name: Employee_Training_Certification_Project_Site.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level4\employee_training_certification_project_site.py
+# File Name: employee_training_certification_project_site.py
 # -----------------------------------------
+
+
 
 from datetime import date
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
-class Employee_Training_Certification_Project_Site(SQLModel, table=True):
+class EmployeeTrainingCertificationProjectSite(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالتدريب والشهادة والمشروع والموقع"""
+    __tablename__ = "employee_training_certification_project_site"
+
     id: Optional[int] = Field(default=None, primary_key=True)
 
     employee_id: int = Field(foreign_key="employee.id")
-    training_id: int = Field(foreign_key="employeetraining.id")
-    certification_id: int = Field(foreign_key="employeecertification.id")
+    training_id: int = Field(foreign_key="employee_training.id")
+    certification_id: int = Field(foreign_key="employee_certification.id")
     project_id: int = Field(foreign_key="project.id")
     site_id: int = Field(foreign_key="site.id")
 

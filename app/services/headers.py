@@ -1,8 +1,10 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\headers.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/services\headers.py
 # File Name: headers.py
 # -----------------------------------------
 
-EMPLOYEE_HEADERS = {
+
+
+EMPLOYEE_hEADERS = {
     "full_name": "full_name",
     "الاسم": "full_name",
     "national_id": "national_id",
@@ -19,7 +21,7 @@ EMPLOYEE_HEADERS = {
     "مبيت": "overnight"
 }
 
-SALARY_HEADERS = {
+SALARY_hEADERS = {
     "name": "name",
     "الاسم": "name",
     "salary_date": "salary_date",
@@ -30,7 +32,7 @@ SALARY_HEADERS = {
     "صافى": "net_salary"
 }
 
-ATTENDANCE_HEADERS = {
+ATTENDANCE_hEADERS = {
     "name": "name",
     "الاسم": "name",
     "date": "date",

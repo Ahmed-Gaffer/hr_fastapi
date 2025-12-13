@@ -1,12 +1,14 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/levels/level1/employee++/Employee_Deduction.py
-# File Name: Employee_Deduction.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level1\employee_plus\employee_deduction.py
+# File Name: employee_deduction.py
 # -----------------------------------------
+
 
 from sqlmodel import SQLModel, Field
 from typing import Optional
 
-class Employee_Deduction(SQLModel, table=True):
+class EmployeeDeduction(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالخصومات"""
+    __tablename__ = "employee_deduction"
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)
     deduction_id: int = Field(foreign_key="deduction.id", index=True)

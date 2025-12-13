@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/salary_config.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\salary_config.py
 # File Name: salary_config.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field
 from typing import Optional

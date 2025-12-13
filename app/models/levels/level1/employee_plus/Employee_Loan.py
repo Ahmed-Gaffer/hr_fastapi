@@ -1,12 +1,15 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/levels/level1/employee++/Employee_Loan.py
-# File Name: Employee_Loan.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level1\employee_plus\employee_loan.py
+# File Name: employee_loan.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field
 from typing import Optional
 
-class Employee_Loan(SQLModel, table=True):
+class EmployeeLoan(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالقروض"""
+    __tablename__ = "employee_loan"
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)
     loan_id: int = Field(foreign_key="loan.id", index=True)

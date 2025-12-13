@@ -1,13 +1,17 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\models\levels\level3\Employee_Project_Site_Department.py
-# File Name: Employee_Project_Site_Department.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level3\employee_project_site_department.py
+# File Name: employee_project_site_department.py
 # -----------------------------------------
+
+
 
 from datetime import date
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
-class Employee_Project_Site_Department(SQLModel, table=True):
+class EmployeeProjectSiteDepartment(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالمشروع والموقع والقسم"""
+    __tablename__ = "employee_project_site_department"
+
     id: Optional[int] = Field(default=None, primary_key=True)
 
     employee_id: int = Field(foreign_key="employee.id")

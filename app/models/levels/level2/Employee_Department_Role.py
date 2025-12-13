@@ -1,14 +1,18 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\models\levels\level2\Employee_Department_Role.py
-# File Name: Employee_Department_Role.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level2\employee_department_role.py
+# File Name: employee_department_role.py
 # -----------------------------------------
+
+
 
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
-class Employee_Department_Role(SQLModel, table=True):
+class EmployeeDepartmentRole(SQLModel, table=True):
     """جدول وسيط يربط القسم بالموظف والدور"""
+    __tablename__ = "employee_department_role"
+    
     id: Optional[int] = Field(default=None, primary_key=True)
     department_id: int = Field(foreign_key="department.id", index=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)
-    role_id: int = Field(foreign_key="employeerole.id", index=True)
+    role_id: int = Field(foreign_key="employee_role.id", index=True)
     

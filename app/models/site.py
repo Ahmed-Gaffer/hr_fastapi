@@ -1,17 +1,14 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/site.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\site.py
 # File Name: site.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
 from sqlalchemy import UniqueConstraint
 
 from app.models.tenant import Tenant
-from app.models.employee import Employee
-from app.models.project import Project
-from app.models.cost_center import CostCenter
-from app.models.attendance import Attendance
-
 
 class Site(SQLModel, table=True):
     """الموقع"""
@@ -34,11 +31,10 @@ class Site(SQLModel, table=True):
     # 🔗 علاقات ORM
     tenant: Tenant = Relationship(back_populates="sites")
 
-    employees: List[Employee] = Relationship(back_populates="site")
-    projects: List[Project] = Relationship(back_populates="site")
-    cost_centers: List[CostCenter] = Relationship(back_populates="site")
-    attendances: List[Attendance] = Relationship(back_populates="site")
-
+    employees: List["Employee"] = Relationship(back_populates="site")
+    projects: List["Project"] = Relationship(back_populates="site")
+    cost_centers: List["CostCenter"] = Relationship(back_populates="site")
+    attendances: List["Attendance"] = Relationship(back_populates="site")
 
 # 🟢 موديلات Create / Update
 class SiteCreate(SQLModel):

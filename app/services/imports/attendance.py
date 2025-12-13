@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\imports\attendance.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/services\imports\attendance.py
 # File Name: attendance.py
 # -----------------------------------------
+
+
 
 # app/services/imports/attendance.py
 import pandas as pd
@@ -9,7 +11,7 @@ from datetime import datetime
 from app.models.employee import Employee
 from app.models.attendance import Attendance
 from app.services.helpers import clean_value, parse_date
-from app.services.headers import ATTENDANCE_HEADERS
+from app.services.headers import ATTENDANCE_hEADERS
 from app.services.imports.base_importer import BaseImporter
 from app.services.cleaners import clean_attendance_data  # ← إضافة
 
@@ -22,7 +24,7 @@ class AttendanceImporter(BaseImporter):
             # قراءة + تنظيف
             df = clean_attendance_data(stream)
             # توحيد أسماء الأعمدة حسب الهيدر المخصص
-            df.rename(columns={k: v for k, v in ATTENDANCE_HEADERS.items() if k in df.columns}, inplace=True)
+            df.rename(columns={k: v for k, v in ATTENDANCE_hEADERS.items() if k in df.columns}, inplace=True)
 
             seen = set()
             for idx, row in df.iterrows():

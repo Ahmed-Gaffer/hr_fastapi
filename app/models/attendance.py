@@ -1,10 +1,14 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/attendance.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\attendance.py
 # File Name: attendance.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional
 from datetime import date, time
+
+from app.models.cost_center import CostCenter
 
 
 class Attendance(SQLModel, table=True):
@@ -16,7 +20,7 @@ class Attendance(SQLModel, table=True):
     # 🔗 علاقات أساسية
     employee_id: int = Field(foreign_key="employee.id", index=True)
     site_id: Optional[int] = Field(foreign_key="site.id", index=True)  # الموقع
-    cost_center_id: Optional[int] = Field(foreign_key="costcenter.id", index=True)  # مركز التكلفة
+    cost_center_id: Optional[int] = Field(foreign_key="cost_center.id", index=True)  # مركز التكلفة
     tenant_id: int = Field(foreign_key="tenant.id", index=True)  # المؤسسة / الشركة (Tenant)
 
     # 🕒 بيانات الحضور

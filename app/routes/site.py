@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\routes\site.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/routes\site.py
 # File Name: site.py
 # -----------------------------------------
+
+
 
 # app/routes/sites.py
 from fastapi import APIRouter, Depends, HTTPException

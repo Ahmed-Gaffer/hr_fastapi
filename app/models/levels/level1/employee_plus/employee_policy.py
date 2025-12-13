@@ -1,18 +1,21 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/levels/level1/employee++/employee_policy.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level1\employee_plus\employee_policy.py
 # File Name: employee_policy.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import date
 
 
-class Employee_Policy(SQLModel, table=True):
+class EmployeePolicy(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالسياسات الضريبية (Many-to-Many)"""
+    __tablename__ = "employee_policy"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)
-    tax_policy_id: int = Field(foreign_key="taxpolicy.id", index=True)
+    tax_policy_id: int = Field(foreign_key="tax_policy.id", index=True)
 
     # 📌 بيانات إضافية عن العلاقة
     effective_from: Optional[date] = None  # تاريخ بداية تطبيق السياسة على الموظف

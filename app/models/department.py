@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/department.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\department.py
 # File Name: department.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List

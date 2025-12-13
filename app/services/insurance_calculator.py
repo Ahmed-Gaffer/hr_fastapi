@@ -1,12 +1,14 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\insurance_calculator.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/services\insurance_calculator.py
 # File Name: insurance_calculator.py
 # -----------------------------------------
+
+
 
 from sqlmodel import Session, select
 from app.models.employee import Employee
 from app.models.employee_details import EmployeeDetails
 
-COMPREHENSIVE_INSURANCE_GOVERNORATES = {
+COMPREHENSIVE_iNSURANCE_gOVERNORATES = {
     "الأقصر", "بورسعيد", "الإسماعيلية", "السويس", "البحر الأحمر",
     "مطروح", "أسوان", "الإسكندرية", "البحيرة", "دمياط", "سوهاج",
     "شمال سيناء", "جنوب سيناء", "قنا", "كفر الشيخ"
@@ -88,7 +90,7 @@ class InsuranceCalculator:
         
         # 2️⃣ التأمين الصحي الشامل (4% إن كان في محافظة مشمولة)
         health_insurance = 0.0
-        if details.governorate in COMPREHENSIVE_INSURANCE_GOVERNORATES:
+        if details.governorate in COMPREHENSIVE_iNSURANCE_gOVERNORATES:
             health_insurance = basic_salary * 0.04
         
         total_employer_insurance = social_insurance + health_insurance
@@ -99,6 +101,6 @@ class InsuranceCalculator:
             "total": round(total_employer_insurance, 2),
             "details": {
                 "governorate": details.governorate,
-                "has_comprehensive": details.governorate in COMPREHENSIVE_INSURANCE_GOVERNORATES
+                "has_comprehensive": details.governorate in COMPREHENSIVE_iNSURANCE_gOVERNORATES
             }
         }

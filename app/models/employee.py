@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/employee.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\employee.py
 # File Name: employee.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
@@ -17,7 +19,7 @@ class WorkStatus(str, Enum):
 
 class InsuranceStatus(str, Enum):
     INSURED = "مؤمن"
-    NOT_INSURED = "غير مؤمن"
+    NOT_iNSURED = "غير مؤمن"
 
 
 class EmployeeStatus(str, Enum):
@@ -36,7 +38,7 @@ class Employee(SQLModel, table=True):
     # 🔗 علاقات أساسية
     tenant_id: int = Field(foreign_key="tenant.id", index=True)  # الشركة
     site_id: Optional[int] = Field(foreign_key="site.id", index=True)  # الموقع
-    cost_center_id: Optional[int] = Field(foreign_key="costcenter.id", index=True)  # مركز التكلفة
+    cost_center_id: Optional[int] = Field(foreign_key="cost_center.id", index=True)  # مركز التكلفة
     department_id: Optional[int] = Field(default=None, foreign_key="department.id", index=True)  # القسم
 
     # 🧑 بيانات أساسية

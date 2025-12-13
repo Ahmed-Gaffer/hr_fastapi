@@ -1,13 +1,17 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\models\levels\level2\Employee_Asset_Site.py
-# File Name: Employee_Asset_Site.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level2\employee_asset_site.py
+# File Name: employee_asset_site.py
 # -----------------------------------------
+
+
 
 from datetime import date
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
-class Employee_Asset_Site(SQLModel, table=True):
+class EmployeeAssetSite(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالأصل والموقع"""
+    __tablename__ = "employee_asset_site"
+    
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)
     asset_id: int = Field(foreign_key="asset.id", index=True)

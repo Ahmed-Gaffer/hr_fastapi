@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/company_config.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\company_config.py
 # File Name: company_config.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field
 from typing import Optional
@@ -8,7 +10,7 @@ import json
 
 
 class CompanyConfig(SQLModel, table=True):
-    __tablename__ = "companyconfig"
+    __tablename__ = "company_config"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     tenant_id: int = Field(foreign_key="tenant.id", index=True, unique=True)

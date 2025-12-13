@@ -1,14 +1,17 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\models\levels\level1\Intermediate\project_site.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level1\Intermediate\project_site.py
 # File Name: project_site.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import date
 
 
-class Project_Site(SQLModel, table=True):
+class ProjectSite(SQLModel, table=True):
     """جدول وسيط يربط المشروع بالمواقع (Many-to-Many)"""
+    __tablename__ = "project_site"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     project_id: int = Field(foreign_key="project.id", index=True)

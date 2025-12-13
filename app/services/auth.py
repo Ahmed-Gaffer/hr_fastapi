@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\auth.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/services\auth.py
 # File Name: auth.py
 # -----------------------------------------
+
+
 
 # خدمات التوثيق باستخدام JWT
 from datetime import datetime, timedelta
@@ -11,9 +13,9 @@ from passlib.context import CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # مفتاح سري لتوقيع التوكن (غيّره في مشروعك الحقيقي)
-SECRET_KEY = "secretkey123"
+SECRET_kEY = "secretkey123"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_tOKEN_eXPIRE_mINUTES = 60
 
 # دالة لتشفير كلمة المرور
 def hash_password(password: str):
@@ -26,7 +28,7 @@ def verify_password(plain_password, hashed_password):
 # دالة لإنشاء توكن JWT
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()  # نسخ البيانات
-    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_tOKEN_eXPIRE_mINUTES))
     to_encode.update({"exp": expire})  # إضافة وقت الانتهاء
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, SECRET_kEY, algorithm=ALGORITHM)
     return encoded_jwt

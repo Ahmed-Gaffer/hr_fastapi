@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/project.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\project.py
 # File Name: project.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
@@ -27,7 +29,7 @@ class Project(SQLModel, table=True):
     site: Optional["Site"] = Relationship(back_populates="projects")
     cost_centers: List["CostCenter"] = Relationship(back_populates="project")  # مراكز التكلفة المرتبطة بالمشروع
 
-
+    
 # 🟢 موديلات Create / Update
 class ProjectCreate(SQLModel):
     tenant_id: int

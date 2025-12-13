@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\routes\salary.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/routes\salary.py
 # File Name: salary.py
 # -----------------------------------------
+
+
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select

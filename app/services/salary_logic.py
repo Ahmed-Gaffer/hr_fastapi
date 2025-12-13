@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\services\salary_logic.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/services\salary_logic.py
 # File Name: salary_logic.py
 # -----------------------------------------
+
+
 
 # منطق حساب المرتبات بناءً على الحضور
 from sqlmodel import Session, select

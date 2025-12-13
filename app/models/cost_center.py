@@ -1,20 +1,19 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/cost_center.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\cost_center.py
 # File Name: cost_center.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
 from sqlalchemy import UniqueConstraint
-
-from app.models.salary import Salary
-
 
 
 class CostCenter(SQLModel, table=True):
     """مركز التكلفة"""
     __tablename__ = "cost_center"
 
-    __table_args__ = (UniqueConstraint("project_id", "name", name="uq_costcenter_project_name"),)
+    __table_args__ = (UniqueConstraint("project_id", "name", name="uq_cost_center_project_name"),)
 
     id: Optional[int] = Field(default=None, primary_key=True)
     project_id: int = Field(foreign_key="project.id", index=True)

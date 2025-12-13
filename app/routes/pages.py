@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi\app\routes\pages.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/routes\pages.py
 # File Name: pages.py
 # -----------------------------------------
+
+
 
 import os
 from fastapi import APIRouter
@@ -9,13 +11,13 @@ from fastapi.responses import FileResponse
 router = APIRouter(tags=["pages"])
 
 # ✅ مسار index (SPA)
-BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "build"))
-INDEX_HTML = os.path.join(BUILD_DIR, "index.html")
+BUILD_dIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "build"))
+INDEX_hTML = os.path.join(BUILD_dIR, "index.html")
 
 @router.get("/", response_class=FileResponse)
 def serve_index():
-    if os.path.exists(INDEX_HTML):
-        return FileResponse(INDEX_HTML)
+    if os.path.exists(INDEX_hTML):
+        return FileResponse(INDEX_hTML)
     return {"detail": "Frontend build not found."}
 
 # ✅ صفحات HTML الأخرى

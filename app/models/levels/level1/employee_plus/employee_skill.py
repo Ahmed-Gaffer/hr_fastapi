@@ -1,13 +1,16 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/levels/level1/employee++/employee_skill.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level1\employee_plus\employee_skill.py
 # File Name: employee_skill.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field
 from typing import Optional
 
 
-class Employee_Skill(SQLModel, table=True):
+class EmployeeSkill(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالمهارات (Many-to-Many)"""
+    __tablename__ = "employee_skill"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)

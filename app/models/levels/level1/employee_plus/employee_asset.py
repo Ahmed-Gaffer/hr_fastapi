@@ -1,14 +1,18 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/levels/level1/employee++/employee_asset.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level1\employee_plus\employee_asset.py
 # File Name: employee_asset.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import date
 
 
-class Employee_Asset(SQLModel, table=True):
+class EmployeeAsset(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالأصول أو المعدات (Many-to-Many)"""
+
+    __tablename__ = "employee_asset"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)

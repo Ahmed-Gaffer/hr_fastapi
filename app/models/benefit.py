@@ -1,6 +1,8 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/benefit.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\benefit.py
 # File Name: benefit.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field
 from typing import Optional
@@ -9,12 +11,11 @@ from enum import Enum
 
 class BenefitType(str, Enum):
     """نوع البدلة"""
-    __tablename__ = "benefit"
+
     IN_KIND_MEALS = "وجبات"
     IN_KIND_TRANSPORT = "مواصلات"
     IN_KIND_TRAVEL = "سفر"
     CASH_ALLOWANCE = "بدلة نقدية"
-
 
 class Benefit(SQLModel, table=True):
     """تسجيل البدلات (في النوع والقيمة)"""

@@ -34,19 +34,16 @@ def read_file_content(filepath):
     return None
 
 def main():
-    # واجهة اختيار مجلدات متعددة
+    # واجهة اختيار مجلدات متعددة (تكرار لحد ما المستخدم يضغط Cancel)
     root = tk.Tk()
     root.withdraw()
 
     folders = []
     while True:
-        folder = filedialog.askdirectory(title="اختر مجلد رئيسي")
+        folder = filedialog.askdirectory(title="اختر مجلد رئيسي (اضغط Cancel للانتهاء)")
         if not folder:  # لو المستخدم ضغط Cancel
             break
         folders.append(folder)
-        more = input("هل تريد إضافة مجلد آخر؟ (y/n): ")
-        if more.lower() != "y":
-            break
 
     if not folders:
         print("❌ لم يتم اختيار أي مجلد")

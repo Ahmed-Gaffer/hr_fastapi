@@ -1,13 +1,16 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models/levels/level1/employee++/employee_training.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level1\employee_plus\employee_training.py
 # File Name: employee_training.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional
 from datetime import date
 
-class Employee_Training(SQLModel, table=True):
+class EmployeeTraining(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالدورات التدريبية والشهادات"""
+    __tablename__ = "employee_training"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     employee_id: int = Field(foreign_key="employee.id", index=True)

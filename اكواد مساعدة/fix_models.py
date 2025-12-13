@@ -5,7 +5,7 @@ from docx import Document
 import re
 
 # الامتدادات المطلوبة
-TARGET_EXTENSIONS = [".py", ".rkt", ".txt", ".json", ".css"]
+TARGET_eXTENSIONS = [".py", ".rkt", ".txt", ".json", ".css"]
 
 def clean_text(text):
     """تنظيف النص من الرموز غير الصالحة للـ XML"""
@@ -52,7 +52,7 @@ def main():
     # جمع كل الملفات من المجلدات المختارة
     all_files = []
     for folder in folders:
-        all_files.extend(collect_files_from_folder(folder, TARGET_EXTENSIONS))
+        all_files.extend(collect_files_from_folder(folder, TARGET_eXTENSIONS))
 
     # إنشاء ملف Word جديد
     doc = Document()

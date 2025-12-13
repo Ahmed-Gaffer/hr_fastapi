@@ -1,6 +1,8 @@
-# File Path: app/models/levels/level1/employee_plus/employee_leave.py
+# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\levels\level1\employee_plus\employee_leave.py
 # File Name: employee_leave.py
 # -----------------------------------------
+
+
 
 from sqlmodel import SQLModel, Field
 from typing import Optional
@@ -17,7 +19,7 @@ class LeaveType(str, Enum):
     OTHER = "أخرى"
 
 
-class Employee_Leave(SQLModel, table=True):
+class employee_leave(SQLModel, table=True):
     """جدول وسيط يربط الموظف بالإجازات (Many-to-Many)"""
 
     id: Optional[int] = Field(default=None, primary_key=True)

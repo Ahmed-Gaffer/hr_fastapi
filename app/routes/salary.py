@@ -17,16 +17,16 @@ router = APIRouter(prefix="/salary", tags=["salary"])
 # 🔹 إضافة سجل راتب جديد
 @router.post("/", response_model=Salary)
 async def create_salary(
-    : Salary,
+    salary: Salary,
     session: Session = Depends(get_session),
     tenant: Tenant = Depends(get_current_tenant)
 ):
     """إضافة سجل راتب جديد لموظف"""
-    .tenant_id = tenant.id
-    session.add()
+    salary.tenant_id = tenant.id
+    session.add(salary)
     session.commit()
-    session.refresh()
-    return 
+    session.refresh(salary)
+    return salary
 
 # 🔹 عرض كل الرواتب للشركة
 @router.get("/", response_model=list[Salary])
@@ -35,7 +35,9 @@ async def list_salaries(
     tenant: Tenant = Depends(get_current_tenant)
 ):
     """عرض كل الرواتب للشركة الحالية"""
-    return session.exec(select(Salary).where(Salary.tenant_id == tenant.id)).all()
+    return session.exec(
+        select(Salary).where(Salary.tenant_id == tenant.id)
+    ).all()
 
 # 🔹 عرض راتب واحد
 @router.get("/{salary_id}", response_model=Salary)

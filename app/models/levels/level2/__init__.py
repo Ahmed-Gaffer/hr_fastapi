@@ -1,0 +1,14 @@
+"""
+Level 2 composite relations
+"""
+
+from .employee_asset_site import EmployeeAssetSite
+from .employee_department_role import EmployeeDepartmentRole
+from .employee_department_site import EmployeeDepartmentSite
+from .employee_policy_cost_center import EmployeePolicyCostCenter
+from .employee_project_cost_center import EmployeeProjectCostCenter
+from .employee_project_site import EmployeeProjectSite
+from .employee_site_role import EmployeeSiteRole
+from .employee_training_certification import EmployeeTrainingCertification
+from .project_department_policy import ProjectDepartmentPolicy
+from .project_employee_role import ProjectEmployeeRole

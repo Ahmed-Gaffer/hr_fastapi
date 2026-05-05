@@ -1,64 +1,34 @@
-# راوتر خاص بالحضور
-from fastapi import APIRouter, Depends
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
+
 from app.database import get_session
+from app.dependencies.tenancy import get_current_tenant_from_header
+from app.schemas.attendance import AttendanceCreate, AttendanceRead
+from app.services.attendance_service import create_attendance
 from app.models.attendance import Attendance
-from app.models.employee import Employee
 
-router = APIRouter(prefix="/attendance", tags=["attendance"])
-
-
-# دالة تعرض الحضور كـ HTML (لـ HTMX)
-@router.get("/list", response_class=HTMLResponse)
-def list_attendance_htmx(session: Session = Depends(get_session)):
-    records = session.exec(select(Attendance)).all()
-
-    html = "<ul class='space-y-2'>"
-
-    for r in records:
-        html += (
-            f"<li class='p-2 border rounded bg-gray-50'>"
-            f"📅 {r.date} - 👤 موظف رقم {r.employee_id} "
-            f"- دخول: {r.check_in} - خروج: {r.check_out}"
-            f"</li>"
-        )
-
-    html += "</ul>"
-    return html
+router = APIRouter(prefix="/attendance", tags=["Attendance"])
 
 
-# دالة لإضافة سجل حضور
-@router.post("/", response_model=Attendance)
-def check_in(att: Attendance, session: Session = Depends(get_session)):
-    session.add(att)
-    session.commit()
-    session.refresh(att)
-    return att
+@router.post("/", response_model=AttendanceRead)
+def create_attendance_route(
+    payload: AttendanceCreate,
+    session: Session = Depends(get_session),
+    tenant = Depends(get_current_tenant_from_header),
+):
+    try:
+        return create_attendance(session, tenant.id, payload)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
-# دالة لعرض كل سجلات الحضور
-@router.get("/", response_model=list[dict])
-def list_attendance(session: Session = Depends(get_session)):
-    records = session.exec(select(Attendance)).all()
+@router.get("/", response_model=list[AttendanceRead])
+def list_attendance(
+    session: Session = Depends(get_session),
+    tenant = Depends(get_current_tenant_from_header),
+):
+    records = session.exec(
+        select(Attendance).where(Attendance.tenant_id == tenant.id)
+    ).all()
 
-    result = []
-    for r in records:
-        employee_name = "N/A"
-        if r.employee_id:
-            emp = session.exec(
-                select(Employee).where(Employee.id == r.employee_id)
-            ).first()
-            if emp:
-                employee_name = emp.name
-
-        result.append(
-            {
-                "id": r.id,
-                "employee_name": employee_name,
-                "date": r.date,
-                "status": r.status,
-            }
-        )
-
-    return result
+    return records

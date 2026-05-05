@@ -1,60 +1,21 @@
-# File Path: E:/خاص احمد جعفر/برمجة/مشاريع/hr_fastapi/app/models\attendance.py
-# File Name: attendance.py
-# -----------------------------------------
-
-
-
-from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional
-from datetime import date, time
-
-from app.models.cost_center import CostCenter
+from datetime import date, time, datetime
+from sqlmodel import SQLModel, Field
 
 
 class Attendance(SQLModel, table=True):
-    """سجل حضور الموظف"""
     __tablename__ = "attendance"
 
     id: Optional[int] = Field(default=None, primary_key=True)
 
-    # 🔗 علاقات أساسية
-    employee_id: int = Field(foreign_key="employee.id", index=True)
-    site_id: Optional[int] = Field(foreign_key="site.id", index=True)  # الموقع
-    cost_center_id: Optional[int] = Field(foreign_key="cost_center.id", index=True)  # مركز التكلفة
-    tenant_id: int = Field(foreign_key="tenant.id", index=True)  # المؤسسة / الشركة (Tenant)
+    tenant_id: int = Field(index=True)
+    employee_id: int = Field(index=True)
 
-    # 🕒 بيانات الحضور
+    date: date
+    check_in: Optional[time] = None
+    check_out: Optional[time] = None
+
+    status: str = Field(default="present")  # present | absent | late
     shift: Optional[str] = None
-    date: date
-    check_in: Optional[time] = None
-    check_out: Optional[time] = None
-    status: str = "حاضر"  # حاضر، غائب، متأخر
 
-    # 🔗 علاقات ORM
-    employee: "Employee" = Relationship(back_populates="attendances")
-    site: Optional["Site"] = Relationship(back_populates="attendances")
-    cost_center: Optional["CostCenter"] = Relationship(back_populates="attendances")
-    tenant: "Tenant" = Relationship(back_populates="attendances")
-
-    
-
-
-# 🟢 موديلات Create / Update
-class AttendanceCreate(SQLModel):
-    employee_id: int
-    site_id: Optional[int] = None
-    cost_center_id: Optional[int] = None
-    date: date
-    check_in: Optional[time] = None
-    check_out: Optional[time] = None
-    status: Optional[str] = None
-
-
-class AttendanceUpdate(SQLModel):
-    employee_id: Optional[int] = None
-    site_id: Optional[int] = None
-    cost_center_id: Optional[int] = None
-    date: Optional[date] = None
-    check_in: Optional[time] = None
-    check_out: Optional[time] = None
-    status: Optional[str] = None
+    created_at: datetime = Field(default_factory=datetime.utcnow)

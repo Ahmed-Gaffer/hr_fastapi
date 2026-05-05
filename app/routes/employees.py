@@ -2,99 +2,57 @@
 # File Name: employees.py
 # -----------------------------------------
 
-
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
+
 from app.database import get_session
-from app.models.employee import Employee, EmployeeCreate, EmployeeUpdate
-from app.models.tenant import Tenant
-from app.dependencies.dependencies import get_current_tenant
+from app.dependencies.tenancy import get_current_tenant_from_header
+from app.schemas.employee import (
+    EmployeeCreate,
+    EmployeeUpdate,
+    EmployeeRead
+)
+from app.services.employee_service import (
+    create_employee,
+    update_employee
+)
+from app.models.employee import Employee
 
-router = APIRouter(prefix="/employees", tags=["employees"])
+router = APIRouter(prefix="/employees", tags=["Employees"])
 
-@router.post("/", response_model=Employee)
-async def create_employee(
-    employee: EmployeeCreate,
+
+@router.post("/", response_model=EmployeeRead)
+def create_employee_route(
+    payload: EmployeeCreate,
     session: Session = Depends(get_session),
-    tenant: Tenant = Depends(get_current_tenant)
+    tenant = Depends(get_current_tenant_from_header),
 ):
-    exists = session.exec(
-        select(Employee).where(Employee.tenant_id == tenant.id, Employee.code == employee.code)
-    ).first()
-    if exists:
-        raise HTTPException(status_code=400, detail="موظف بنفس الكود موجود بالفعل")
+    try:
+        return create_employee(session, tenant.id, payload)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
-    emp = Employee(
-        tenant_id=tenant.id,
-        name=employee.name,
-        code=employee.code,
-        base_salary=employee.base_salary,
-        status=employee.status or "نشط",
-        department=employee.department
-    )
-    session.add(emp)
-    session.commit()
-    session.refresh(emp)
-    return emp
 
-@router.get("/", response_model=list[Employee])
-async def list_employees(
+@router.get("/", response_model=list[EmployeeRead])
+def list_employees(
     session: Session = Depends(get_session),
-    tenant: Tenant = Depends(get_current_tenant)
+    tenant = Depends(get_current_tenant_from_header),
 ):
-    return session.exec(select(Employee).where(Employee.tenant_id == tenant.id)).all()
+    employees = session.exec(
+        select(Employee).where(Employee.tenant_id == tenant.id)
+    ).all()
 
-@router.get("/{employee_id}", response_model=Employee)
-async def get_employee(
+    return employees
+
+
+@router.put("/{employee_id}", response_model=EmployeeRead)
+def update_employee_route(
     employee_id: int,
+    payload: EmployeeUpdate,
     session: Session = Depends(get_session),
-    tenant: Tenant = Depends(get_current_tenant)
+    tenant = Depends(get_current_tenant_from_header),
 ):
-    emp = session.exec(select(Employee).where(Employee.id == employee_id)).first()
-    if not emp or emp.tenant_id != tenant.id:
-        raise HTTPException(status_code=404, detail="الموظف غير موجود")
-    return emp
-
-@router.put("/{employee_id}", response_model=Employee)
-async def update_employee(
-    employee_id: int,
-    data: EmployeeUpdate,
-    session: Session = Depends(get_session),
-    tenant: Tenant = Depends(get_current_tenant)
-):
-    emp = session.exec(select(Employee).where(Employee.id == employee_id)).first()
-    if not emp or emp.tenant_id != tenant.id:
-        raise HTTPException(status_code=404, detail="الموظف غير موجود")
-
-    if data.code and data.code != emp.code:
-        other = session.exec(
-            select(Employee).where(Employee.tenant_id == tenant.id, Employee.code == data.code, Employee.id != employee_id)
-        ).first()
-        if other:
-            raise HTTPException(status_code=400, detail="كود مستخدم من قبل موظف آخر")
-
-    # تحديث انتقائي
-    emp.name = data.name or emp.name
-    emp.code = data.code or emp.code
-    emp.base_salary = data.base_salary if data.base_salary is not None else emp.base_salary
-    emp.status = data.status or emp.status
-    emp.department = data.department or emp.department
-
-    session.add(emp)
-    session.commit()
-    session.refresh(emp)
-    return emp
-
-@router.delete("/{employee_id}")
-async def delete_employee(
-    employee_id: int,
-    session: Session = Depends(get_session),
-    tenant: Tenant = Depends(get_current_tenant)
-):
-    emp = session.exec(select(Employee).where(Employee.id == employee_id)).first()
-    if not emp or emp.tenant_id != tenant.id:
-        raise HTTPException(status_code=404, detail="الموظف غير موجود")
-    session.delete(emp)
-    session.commit()
-    return {"detail": "تم حذف الموظف"}
+    try:
+        return update_employee(session, tenant.id, employee_id, payload)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))

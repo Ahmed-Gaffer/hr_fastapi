@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 
 from app.database import get_session
-from app.dependencies.tenancy import get_current_tenant_from_header
+from app.dependencies. import get_current_tenant_from_header
 from app.schemas.attendance import AttendanceCreate, AttendanceRead
 from app.services.attendance_service import create_attendance
 from app.models.attendance import Attendance

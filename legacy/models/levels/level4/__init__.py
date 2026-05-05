@@ -1,7 +1,0 @@
-"""
-Level 4 highest composite relations
-"""
-
-from .employee_asset_project_site_role import EmployeeAssetProjectSiteRole
-from .employee_training_certification_project_site import EmployeeTrainingCertificationProjectSite
-from .tenant_site_department_cost_center_policy import TenantSiteDepartmentCostCenterPolicy

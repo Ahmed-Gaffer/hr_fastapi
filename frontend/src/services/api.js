@@ -1,126 +1,93 @@
 import axios from "axios";
 
-const API_bASE = process.env.REACT_aPP_aPI_URL || "http://localhost:8000";
-const axiosInstance = axios.create({ baseURL: API_bASE });
+const API_BASE = process.env.REACT_APP_API_URL || "http://192.168.10.92:8000/api";
 
-// ======================= Employees =======================
+const getTenantId = () =>
+  localStorage.getItem("tenantId") || process.env.REACT_APP_TENANT_ID || "1";
+
+const axiosInstance = axios.create({ baseURL: API_BASE });
+
+axiosInstance.interceptors.request.use((config) => {
+  config.headers["X-Tenant-ID"] = getTenantId();
+  return config;
+});
+
+const getErrorMessage = (err, fallback) =>
+  err.response?.data?.detail || err.response?.data?.error || err.message || fallback;
+
 export async function fetchEmployees() {
-  try {
-    const res = await axiosInstance.get("/employees");
-    return res.data.map((e) => ({
-      id: e.id,
-      name: e.name || e.full_name || "—",
-      role: e.role || "-",
-      site: e.site_name || "-",
-    }));
-  } catch (err) {
-    console.error("fetchEmployees error:", err.response ? err.response.data : err.message);
-    // بيانات افتراضية لو السيرفر وقع
-    return [{ id: 1, name: "أحمد محمد", role: "مهندس", site: "القاهرة" }];
-  }
+  const res = await axiosInstance.get("/employees/");
+  return res.data.map((e) => ({
+    ...e,
+    role: e.job_title || "-",
+    site: e.site_name || "-",
+    costCenter: e.cost_center_name || "-",
+  }));
 }
 
 export async function fetchEmployee(id) {
-  try {
-    const res = await axiosInstance.get(`/employees/${id}`);
-    return res.data;
-  } catch (err) {
-    console.error("fetchEmployee error:", err.response ? err.response.data : err.message);
-    // بيانات افتراضية
-    return {
-      id,
-      name: "موظف",
-      email: "email@example.com",
-      phone: "0123456789",
-      role: "موظف",
-      site: "الموقع",
-      hire_date: "2023-01-01",
-      base_salary: 5000,
-    };
-  }
+  const res = await axiosInstance.get(`/employees/${id}`);
+  return res.data;
 }
 
-// ======================= Attendance =======================
 export async function fetchAttendances() {
-  try {
-    const res = await axiosInstance.get("/attendance");
-    return res.data.map((r) => ({
-      id: r.id,
-      employee_name: r.employee?.name || "موظف",
-      date: r.date,
-      status: r.status || "حاضر",
-    }));
-  } catch (err) {
-    console.error("fetchAttendances error:", err.response ? err.response.data : err.message);
-    return [];
-  }
+  const res = await axiosInstance.get("/attendance/");
+  return res.data.map((r) => ({
+    ...r,
+    employee_name: r.employee_name || "موظف",
+    site_name: r.site_name || "-",
+    status: r.status || "حاضر",
+  }));
 }
 
-export async function Attendance(data) {
+export async function createAttendance(data) {
   try {
-    const res = await axiosInstance.post("/attendance", data);
+    const payload = {
+      ...data,
+      employee_id: Number(data.employee_id),
+    };
+    const res = await axiosInstance.post("/attendance/", payload);
     return res.data;
   } catch (err) {
-    const errorMsg =
-      err.response?.data?.detail ||
-      err.response?.data?.error ||
-      err.message ||
-      "فشل تسجيل الحضور";
-    throw new Error(errorMsg);
+    throw new Error(getErrorMessage(err, "فشل تسجيل الحضور"));
   }
 }
 
-// ======================= Import =======================
-export async function importEmployeesFromExcel(file, commit = false) {
+export async function importEmployeesFromExcel(file, commit = true) {
   const formData = new FormData();
   formData.append("file", file);
   try {
-    const res = await axiosInstance.post(`/import/bulk?commit=${commit}`, formData, {
+    const res = await axiosInstance.post(`/imports/employees/?commit=${commit}`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
-    return res.data; // هيكون فيه status و count أو تفاصيل التقرير
+    return res.data;
   } catch (err) {
-    const errorMsg =
-      err.response?.data?.detail ||
-      err.response?.data?.error ||
-      err.message ||
-      "فشل الاستيراد";
-    throw new Error(errorMsg);
+    throw new Error(getErrorMessage(err, "فشل الاستيراد"));
   }
 }
 
-// ======================= Reports =======================
 export async function fetchSalaryReports() {
-  try {
-    const res = await axiosInstance.get("/reports/salary");
-    return res.data;
-  } catch (err) {
-    const errorMsg =
-      err.response?.data?.detail ||
-      err.response?.data?.error ||
-      err.message ||
-      "فشل جلب تقارير الرواتب";
-
-    console.error("fetchSalaryReports error:", errorMsg);
-
-    // بيانات افتراضية لو السيرفر وقع
-    return [
-      { month: "يناير", total: 100000, department: "IT" },
-      { month: "فبراير", total: 105000, department: "HR" },
-    ];
-  }
+  const res = await axiosInstance.get("/reports/salary");
+  return res.data;
 }
 
 export async function fetchAttendanceStats() {
-  try {
-    const res = await axiosInstance.get("/reports/attendance");
-    return res.data;
-  } catch (err) {
-    console.error("fetchAttendanceStats error:", err.response ? err.response.data : err.message);
-    return [
-      { name: "حاضر", value: 80 },
-      { name: "غائب", value: 15 },
-      { name: "إجازة", value: 5 },
-    ];
-  }
+  const res = await axiosInstance.get("/reports/attendance");
+  return res.data;
+}
+
+export async function fetchDashboardStats() {
+  const [employees, attendanceReport, salaryReport] = await Promise.all([
+    fetchEmployees(),
+    fetchAttendanceStats(),
+    fetchSalaryReports(),
+  ]);
+
+  const salaryTotal = salaryReport.reduce((sum, row) => sum + Number(row.total || 0), 0);
+
+  return {
+    employeesCount: employees.length,
+    attendancePercent: attendanceReport.percent_present || 0,
+    salaryTotal,
+  };
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Box, Card, CardContent, Typography, Grid, Button, CircularProgress, Alert } from '@mui/material';
-import { fetchEmployee } from '../services/api';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { fetchEmployee } from '../services/api';
 
 export default function EmployeeDetailsPage() {
   const { id } = useParams();
@@ -13,11 +13,11 @@ export default function EmployeeDetailsPage() {
 
   useEffect(() => {
     fetchEmployee(id)
-      .then(data => {
+      .then((data) => {
         setEmployee(data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch(() => {
         setError('فشل تحميل بيانات الموظف');
         setLoading(false);
       });
@@ -26,6 +26,19 @@ export default function EmployeeDetailsPage() {
   if (loading) return <CircularProgress sx={{ mt: 20 }} />;
   if (error) return <Alert severity="error" sx={{ mt: 20 }}>{error}</Alert>;
   if (!employee) return <Alert severity="warning" sx={{ mt: 20 }}>لم يتم العثور على الموظف</Alert>;
+
+  const fields = [
+    ['الكود', employee.code],
+    ['الوظيفة', employee.job_title],
+    ['الموقع', employee.site_name],
+    ['مركز التكلفة', employee.cost_center_name],
+    ['القسم', employee.department_name],
+    ['تاريخ التعيين', employee.hire_date],
+    ['الرقم القومي', employee.national_id],
+    ['الراتب الأساسي', employee.base_salary ? `${employee.base_salary} ج.م` : null],
+    ['حالة العمل', employee.work_status],
+    ['حالة الموظف', employee.status],
+  ];
 
   return (
     <Box sx={{ mt: 12, mb: 4 }}>
@@ -36,30 +49,12 @@ export default function EmployeeDetailsPage() {
         <CardContent>
           <Typography variant="h4" gutterBottom>{employee.name}</Typography>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <Typography color="textSecondary">البريد الإلكتروني</Typography>
-              <Typography variant="body1">{employee.email || 'غير محدد'}</Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography color="textSecondary">الهاتف</Typography>
-              <Typography variant="body1">{employee.phone || 'غير محدد'}</Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography color="textSecondary">المنصب</Typography>
-              <Typography variant="body1">{employee.role || 'غير محدد'}</Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography color="textSecondary">الموقع</Typography>
-              <Typography variant="body1">{employee.site || 'غير محدد'}</Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography color="textSecondary">تاريخ التوظيف</Typography>
-              <Typography variant="body1">{employee.hire_date || 'غير محدد'}</Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography color="textSecondary">الراتب الأساسي</Typography>
-              <Typography variant="body1">{employee.base_salary ? `${employee.base_salary} ج.م` : 'غير محدد'}</Typography>
-            </Grid>
+            {fields.map(([label, value]) => (
+              <Grid item xs={12} md={6} key={label}>
+                <Typography color="text.secondary">{label}</Typography>
+                <Typography variant="body1">{value || 'غير محدد'}</Typography>
+              </Grid>
+            ))}
           </Grid>
         </CardContent>
       </Card>

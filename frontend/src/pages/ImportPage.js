@@ -44,11 +44,11 @@ export default function ImportPage() {
         setProgress((prev) => (prev < 90 ? prev + 10 : prev));
       }, 300);
 
-      const result = await importEmployeesFromExcel(file, false); // false = تجربة (dry-run)
+      const result = await importEmployeesFromExcel(file, true);
       clearInterval(interval);
       setProgress(100);
 
-      setSuccess(`تم استيراد ${result.count || 0} موظف بنجاح`);
+      setSuccess(`تم استيراد ${result.imported || 0} موظف بنجاح`);
       setFile(null);
       setTimeout(() => setProgress(0), 1000);
     } catch (err) {

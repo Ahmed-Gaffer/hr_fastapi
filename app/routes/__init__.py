@@ -11,6 +11,9 @@ from app.routes import (
     site,
     system,
     tenants,
+    user,
+    search,
+    analytics,
 )
 from app.routes.imports import attendance as import_attendance
 from app.routes.imports import employees as import_employees
@@ -29,6 +32,9 @@ api_router.include_router(auth.router)
 api_router.include_router(site.router)
 api_router.include_router(pages.router)
 api_router.include_router(system.router)
+api_router.include_router(user.router)
+api_router.include_router(search.router)
+api_router.include_router(analytics.router)
 
 api_router.include_router(import_employees.router, prefix="/imports", tags=["imports"])
 api_router.include_router(import_attendance.router, prefix="/imports", tags=["imports"])

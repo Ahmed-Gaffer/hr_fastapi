@@ -10,7 +10,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 # إعداد التشفير لكلمات المرور
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 
 # مفتاح سري لتوقيع التوكن (غيّره في مشروعك الحقيقي)
 SECRET_kEY = "secretkey123"

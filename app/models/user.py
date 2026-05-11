@@ -15,3 +15,4 @@ class User(SQLModel, table=True):
     username: str  # اسم المستخدم
     hashed_password: str  # كلمة المرور المشفرة
     role: str = "user"  # نوع المستخدم (user أو admin)
+    tenant_id: int = Field(default=1)  # معرف الشركة

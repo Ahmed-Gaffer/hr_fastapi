@@ -9,6 +9,12 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import BusinessIcon from '@mui/icons-material/Business';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import GroupIcon from '@mui/icons-material/Group';
 import { Link, useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -19,8 +25,15 @@ export default function SideBar({ open }) {
     { label: 'لوحة التحكم', icon: <DashboardIcon />, path: '/' },
     { label: 'الموظفين', icon: <PeopleIcon />, path: '/employees' },
     { label: 'الحضور', icon: <EventNoteIcon />, path: '/attendance' },
-    { label: 'استيراد', icon: <FileUploadIcon />, path: '/import' },
-    { label: 'التقارير', icon: <AssignmentIcon />, path: '/reports' }
+    { label: 'الرواتب', icon: <AttachMoneyIcon />, path: '/salary' },
+    { label: 'مكونات الراتب', icon: <AttachMoneyIcon />, path: '/salary-components' },
+    { label: 'المواقع', icon: <BusinessIcon />, path: '/site' },
+    { label: 'التقارير', icon: <AssignmentIcon />, path: '/reports' },
+    { label: 'التحليلات', icon: <AnalyticsIcon />, path: '/analytics' },
+    { label: 'النظام', icon: <SettingsIcon />, path: '/system' },
+    { label: 'الإعدادات', icon: <SettingsApplicationsIcon />, path: '/settings' },
+    { label: 'المستأجرين', icon: <GroupIcon />, path: '/tenants' },
+    { label: 'استيراد', icon: <FileUploadIcon />, path: '/import' }
   ];
 
   return (

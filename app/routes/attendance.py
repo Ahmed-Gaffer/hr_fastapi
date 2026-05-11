@@ -3,10 +3,19 @@ from fastapi.responses import HTMLResponse
 from sqlmodel import Session, select
 
 from app.database import get_session
+<<<<<<< HEAD
 from app.dependencies.dependencies import get_current_tenant
 from app.models.attendance import Attendance, AttendanceCreate
 from app.models.employee import Employee
 from app.models.tenant import Tenant
+=======
+from app.dependencies. import get_current_tenant_from_header
+from app.schemas.attendance import AttendanceCreate, AttendanceRead
+from app.services.attendance_service import create_attendance
+from app.models.attendance import Attendance
+
+router = APIRouter(prefix="/attendance", tags=["Attendance"])
+>>>>>>> 2790b4d9e850c31da29c2d54b61c4132bc9d6abb
 
 
 router = APIRouter(prefix="/attendance", tags=["attendance"])

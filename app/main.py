@@ -21,7 +21,7 @@ logging.basicConfig(
     format="%(levelname)s | %(name)s | %(message)s",
 )
 
-app = FastAPI(title="HR FastAPI")
+app = FastAPI(title="نظام إدارة الموارد البشرية")
 
 app.include_router(api_router, prefix="/api")
 
@@ -50,5 +50,5 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 @app.on_event("startup")
 def on_startup():
-    print("🚀 Starting application...")
+    print("Starting application...")
     create_db_and_tables()   # ❌ ممنوع try/except هنا

@@ -18,6 +18,9 @@ async def search_employees(
     site_id: int = Query(None, description="تصفية حسب الموقع"),
     cost_center_id: int = Query(None, description="تصفية حسب مركز التكلفة"),
     status: str = Query(None, description="تصفية حسب الحالة"),
+    work_status: str = Query(None, description="تصفية حسب حالة العمل"),
+    insurance_status: str = Query(None, description="تصفية حسب حالة التأمين"),
+    employee_category: str = Query(None, description="تصفية حسب فئة الموظف"),
     skip: int = Query(0),
     limit: int = Query(50),
     session: Session = Depends(get_session),
@@ -33,6 +36,9 @@ async def search_employees(
                 Employee.code.contains(q),
                 Employee.national_id.contains(q),
                 Employee.job_title.contains(q),
+                Employee.employee_category.contains(q),
+                Employee.insurance_status.contains(q),
+                Employee.work_status.contains(q),
             )
         )
 
@@ -44,6 +50,12 @@ async def search_employees(
         query = query.where(Employee.cost_center_id == cost_center_id)
     if status:
         query = query.where(Employee.status == status)
+    if work_status:
+        query = query.where(Employee.work_status == work_status)
+    if insurance_status:
+        query = query.where(Employee.insurance_status == insurance_status)
+    if employee_category:
+        query = query.where(Employee.employee_category.contains(employee_category))
 
     total = session.exec(query).all().__len__()
     results = session.exec(query.offset(skip).limit(limit)).all()
@@ -59,6 +71,9 @@ async def search_employees(
                 "name": e.name,
                 "job_title": e.job_title,
                 "status": e.status,
+                "work_status": e.work_status,
+                "insurance_status": e.insurance_status,
+                "employee_category": e.employee_category,
                 "department_id": e.department_id,
                 "department_name": e.department.name if e.department else None,
                 "site_id": e.site_id,

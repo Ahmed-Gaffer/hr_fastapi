@@ -7,8 +7,12 @@
 # استيراد الدالة الخاصة بالاستيراد من ملف الخدمات
 from app.services.import_excel import import_employees_from_excel
 
-# تحديد مسار ملف Excel اللي فيه بيانات الموظفين
-excel_path = "employees.xlsx"
+import sys
+from pathlib import Path
 
-# استدعاء الدالة مع تمرير المسار
-import_employees_from_excel(excel_path)
+# تحديد ملف Excel من الوسيطات أو استخدام الملف الافتراضي
+excel_files = sys.argv[1:] or ["data/embloyees .1.xlsx"]
+for excel_path in excel_files:
+    print(f"استيراد الملف: {excel_path}")
+    result = import_employees_from_excel(excel_path)
+    print(result)

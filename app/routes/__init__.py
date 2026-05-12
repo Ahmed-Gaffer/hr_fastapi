@@ -14,6 +14,8 @@ from app.routes import (
     user,
     search,
     analytics,
+    departments,
+    cost_centers,
 )
 from app.routes.imports import attendance as import_attendance
 from app.routes.imports import employees as import_employees
@@ -30,6 +32,8 @@ api_router.include_router(salary_components.router)
 api_router.include_router(reports.router)
 api_router.include_router(auth.router)
 api_router.include_router(site.router)
+api_router.include_router(departments.router)
+api_router.include_router(cost_centers.router)
 api_router.include_router(pages.router)
 api_router.include_router(system.router)
 api_router.include_router(user.router)

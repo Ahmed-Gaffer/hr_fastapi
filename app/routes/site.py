@@ -8,14 +8,18 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 from app.database import get_session
+from app.dependencies.dependencies import get_current_tenant
 from app.models.site import Site, SiteCreate, SiteUpdate
 
 router = APIRouter(prefix="/sites", tags=["Sites"])
 
-# 🟢 عرض كل المواقع
+# 🟢 عرض كل المواقع الخاصة بالشركة الحالية
 @router.get("/")
-def get_sites(session: Session = Depends(get_session)):
-    sites = session.exec(select(Site)).all()
+def get_sites(
+    session: Session = Depends(get_session),
+    tenant=Depends(get_current_tenant),
+):
+    sites = session.exec(select(Site).where(Site.tenant_id == tenant.id)).all()
     return sites
 
 # 🟢 عرض موقع واحد بالـ id

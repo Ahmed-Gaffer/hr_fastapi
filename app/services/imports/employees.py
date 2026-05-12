@@ -18,6 +18,7 @@ from app.models.project import Project
 from app.models.cost_center import CostCenter
 from app.models.department import Department
 from app.services.cleaners import clean_employee_data, clean_value
+from app.services.headers import EMPLOYEE_hEADERS
 
 
 def _value(row, column: str):
@@ -38,10 +39,13 @@ def _get_or_create(session: Session, model, defaults: dict | None = None, **filt
 
 
 class EmployeeImporter:
-    def run(self, session: Session, stream: bytes, commit: bool, allow_create_tenant: bool):
+    def run(self, session: Session, stream: bytes, commit: bool, allow_create_tenant: bool, current_tenant: Tenant):
         try:
             df = clean_employee_data(io.BytesIO(stream))
-            print("📄 Excel columns:", df.columns.tolist())
+            print("📄 Raw Excel columns:", df.columns.tolist())
+            df.rename(columns={k: v for k, v in EMPLOYEE_hEADERS.items() if k in df.columns}, inplace=True)
+            print("📄 Excel columns after rename:", df.columns.tolist())
+            print(f"📊 Total rows in Excel: {len(df)}")
 
             required = ["code", "name"]
             for col in required:
@@ -59,20 +63,13 @@ class EmployeeImporter:
                     name = _value(row, "name")
                     company_name = _value(row, "company_name")
 
-                    tenant = None
-                    if company_name:
-                        tenant = session.exec(
-                            select(Tenant).where(Tenant.name == company_name)
-                        ).first()
-                        if not tenant and allow_create_tenant:
-                            tenant = Tenant(name=company_name, code=f"auto-{company_name}")
-                            session.add(tenant)
-                            session.flush()
-
-                    if not tenant:
+                    if not code or not name:
                         skipped += 1
-                        report_rows.append({"row": idx, "reason": "tenant not found"})
+                        report_rows.append({"row": idx, "reason": "missing code or name"})
+                        print(f"⚠️ Skipped row {idx}: missing code or name")
                         continue
+
+                    tenant = current_tenant  # استخدم الشركة الحالية دائمًا لضمان ظهور البيانات في البحث
 
                     exists = session.exec(
                         select(Employee).where(
@@ -134,6 +131,39 @@ class EmployeeImporter:
                             name=department_name,
                         )
 
+                    work_status = _value(row, "work_status")
+                    status_value = _value(row, "status")
+                    employee_category = _value(row, "employee_category")
+                    insurance_status = _value(row, "insurance_status")
+
+                    if status_value:
+                        status_value = status_value.strip()
+                        status_value = {
+                            "ACTIVE": "نشط",
+                            "SUSPENDED": "موقوف",
+                            "TERMINATED": "منتهي",
+                            "active": "نشط",
+                            "suspended": "موقوف",
+                            "terminated": "منتهي",
+                        }.get(status_value, status_value)
+
+                    if not status_value and work_status:
+                        status_map = {
+                            "يعمل": "نشط",
+                            "نشط": "نشط",
+                            "اجازة بدون مرتب": "موقوف",
+                            "اجاوه بدون مرتب": "موقوف",
+                            "إجازة بدون مرتب": "موقوف",
+                            "اجازة": "موقوف",
+                            "إجازة": "موقوف",
+                            "لا يعمل": "موقوف",
+                            "موقوف": "موقوف",
+                        }
+                        status_value = status_map.get(work_status, "نشط")
+
+                    if not status_value:
+                        status_value = "نشط"
+
                     emp = Employee(
                         tenant_id=tenant.id,
                         site_id=site.id if site else None,
@@ -144,6 +174,10 @@ class EmployeeImporter:
                         national_id=_value(row, "national_id"),
                         job_title=_value(row, "job_title"),
                         hire_date=row.get("hire_date") if "hire_date" in row else None,
+                        employee_category=employee_category,
+                        insurance_status=insurance_status,
+                        work_status=work_status,
+                        status=status_value,
                         created_at=datetime.utcnow(),
                         updated_at=datetime.utcnow()
                     )
@@ -158,6 +192,8 @@ class EmployeeImporter:
 
             if commit:
                 session.commit()
+
+            print(f"✅ Import summary: {imported} imported, {skipped} skipped, total processed: {imported + skipped}")
 
             return {
                 "status": "ok",

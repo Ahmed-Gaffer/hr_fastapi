@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Box, Typography, Alert } from '@mui/material';
 import axios from 'axios';
 
-const API_BASE = process.env.REACT_APP_API_URL || "http://192.168.10.92:8000/api";
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:8000/api";
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');

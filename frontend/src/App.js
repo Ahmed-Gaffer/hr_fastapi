@@ -23,13 +23,14 @@ import { Box } from '@mui/material';
 export default function App() {
   const [open, setOpen] = React.useState(true);
   const { t } = useTranslation();                   // 3. تجهيز دالة الترجمة
-  const token = true;                              //شلت الكود ده مؤقتا عشان افتح السيستم//localStorage.getItem('token');
+  const token = localStorage.getItem('token');
   React.useEffect(() => {
     document.title = t('appTitle'); 
   }, [t]);                                      // 4. تغيير عنوان الصفحة للعربي من داخل الكود
-  if (!token) {
-    return <LoginPage />;
-  }
+  // إزالة شرط تسجيل الدخول للوصول المفتوح
+  // if (!token) {
+  //   return <LoginPage />;
+  // }
   return (
     <BrowserRouter>
       <TopBar open={open} setOpen={setOpen} />

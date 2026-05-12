@@ -50,7 +50,9 @@ export default function AdvancedAnalyticsPage() {
   const [error, setError] = useState('');
 
   // فلاتر
-  const [year, setYear] = useState(new Date().getFullYear());
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: currentYear - 2022 + 1 }, (_, index) => 2022 + index);
+  const [year, setYear] = useState(currentYear);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
 
   // البيانات
@@ -132,9 +134,24 @@ export default function AdvancedAnalyticsPage() {
   };
 
   useEffect(() => {
-    handleTabChange('payroll');
+    switch (tab) {
+      case 'payroll':
+        loadPayrollSummary();
+        break;
+      case 'department':
+        loadDepartmentAnalysis();
+        break;
+      case 'cost-center':
+        loadCostCenterAnalysis();
+        break;
+      case 'performance':
+        loadEmployeePerformance();
+        break;
+      default:
+        break;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [tab, year, month]);
 
   return (
     <Box sx={{ mt: 12, mb: 4 }}>
@@ -147,7 +164,7 @@ export default function AdvancedAnalyticsPage() {
               <FormControl fullWidth size="small">
                 <InputLabel>السنة</InputLabel>
                 <Select value={year} label="السنة" onChange={(e) => setYear(e.target.value)}>
-                  {[2022, 2023, 2024, 2025].map((y) => (
+                  {years.map((y) => (
                     <MenuItem key={y} value={y}>{y}</MenuItem>
                   ))}
                 </Select>

@@ -9,8 +9,18 @@ import pandas as pd
 from datetime import date, datetime
 
 def _normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """توحيد أسماء الأعمدة كلها إلى lowercase ومن غير مسافات"""
-    df.columns = [str(c).strip().lower() for c in df.columns]
+    """توحيد أسماء الأعمدة كلها إلى lowercase وباستبدال الفراغات والرموز بـ underscores."""
+    normalized = []
+    for c in df.columns:
+        header = str(c).strip().lower()
+        header = header.replace(" ", "_")
+        header = header.replace("/", "_")
+        header = header.replace("-", "_")
+        header = header.replace("\\", "_")
+        header = header.replace(".", "_")
+        header = header.replace("__", "_")
+        normalized.append(header)
+    df.columns = normalized
     return df
 
 def clean_value(value):
@@ -65,13 +75,18 @@ def clean_employee_data(stream) -> pd.DataFrame:
     if "employee_category" in df.columns:
         df["employee_category"] = df["employee_category"].fillna("غير محدد")
 
-    # حالة العمل → Mapping للحالات
+    # حالة العمل → توحيد قيم work_status
     if "work_status" in df.columns:
+        df["work_status"] = df["work_status"].apply(clean_value)
         df["work_status"] = df["work_status"].replace({
-            "يعمل": "نشط",
-            "اجاوه بدون مرتب": "اجازة",
-            "لا يعمل": "موقوف"
-        }).fillna("موقوف")
+            "يعمل": "يعمل",
+            "نشط": "يعمل",
+            "لا يعمل": "موقوف",
+            "موقوف": "موقوف",
+            "اجازة بدون مرتب": "اجازة بدون مرتب",
+            "اجاوه بدون مرتب": "اجازة بدون مرتب",
+            "إجازة بدون مرتب": "اجازة بدون مرتب",
+        }).fillna(df["work_status"])
 
     return df
 

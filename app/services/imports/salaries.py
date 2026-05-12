@@ -14,7 +14,8 @@ from app.models.salary import Salary
 from app.services.helpers import clean_value, parse_date
 from app.services.headers import SALARY_hEADERS
 from app.services.imports.base_importer import BaseImporter
-from app.services.cleaners import clean_salary_data  # ← إضافة
+from app.services.cleaners import clean_salary_data
+from datetime import date
 
 class SalaryImporter(BaseImporter):
     def run(self, session: Session, tenant, stream, commit: bool = True, allow_create_employee: bool = True):
@@ -24,13 +25,23 @@ class SalaryImporter(BaseImporter):
         try:
             # قراءة + تنظيف
             df = clean_salary_data(stream)
-            # توحيد أسماء الأعمدة حسب الهيدر
             df.rename(columns={k: v for k, v in SALARY_hEADERS.items() if k in df.columns}, inplace=True)
 
             seen = set()
             for idx, row in df.iterrows():
                 name = clean_value(row.get("name"))
-                sdate = parse_date(row.get("salary_date"))
+                salary_date = row.get("salary_date") or row.get("month") or row.get("date")
+                sdate = parse_date(salary_date)
+                if not sdate:
+                    month_value = clean_value(row.get("month")) or clean_value(row.get("salary_month"))
+                    year_value = clean_value(row.get("year")) or clean_value(row.get("salary_year"))
+                    if month_value:
+                        try:
+                            month_num = int(str(month_value).strip().split()[0])
+                            year_num = int(str(year_value).strip()) if year_value else datetime.utcnow().year
+                            sdate = date(year_num, month_num, 1)
+                        except Exception:
+                            sdate = None
                 if not name or not sdate:
                     report["rejected"] += 1
                     report["errors"].append(f"صف #{idx}: الاسم أو التاريخ غير صالح")
@@ -59,7 +70,8 @@ class SalaryImporter(BaseImporter):
 
                 if not emp:
                     if allow_create_employee:
-                        emp = Employee(full_name=name, tenant_id=getattr(tenant, "id", None))
+                        employee_code = legacy or nid or insurance or f"import-{idx}"
+                        emp = Employee(name=name, code=employee_code, tenant_id=getattr(tenant, "id", None))
                         session.add(emp); session.flush()
                         report["added"] += 1
                     else:

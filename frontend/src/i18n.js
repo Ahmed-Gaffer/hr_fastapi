@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   ar: {
     translation: {
-      "appTitle": "نظام الموارد البشرية",
+      "appTitle": "نظام إدارة الموارد البشرية",
       "dashboard": "لوحة التحكم",
       "employees": "الموظفين",
       "welcome": "مرحباً بك"

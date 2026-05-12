@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const getApiBase = () =>
-  localStorage.getItem("apiBase") || process.env.REACT_APP_API_URL || "http://192.168.10.92:8000/api";
+  localStorage.getItem("apiBase") || process.env.REACT_APP_API_URL || "http://localhost:8000/api";
 
 const getTenantId = () =>
   localStorage.getItem("tenantId") || process.env.REACT_APP_TENANT_ID || "1";
@@ -140,6 +140,22 @@ export async function fetchOvertimeSummary() {
   const res = await axiosInstance.get("/reports/overtime/summary");
   return res.data;
 }
+
+export async function fetchSites() {
+  const res = await axiosInstance.get("/sites/");
+  return res.data;
+}
+
+export async function fetchDepartments() {
+  const res = await axiosInstance.get("/departments/");
+  return res.data;
+}
+
+export async function fetchCostCenters() {
+  const res = await axiosInstance.get("/cost-centers/");
+  return res.data;
+}
+
 export async function searchEmployees(q, filters = {}, skip = 0, limit = 50) {
   const params = new URLSearchParams({ q, skip, limit, ...filters });
   const res = await axiosInstance.get(`/search/employees?${params}`);

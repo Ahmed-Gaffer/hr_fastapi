@@ -4,6 +4,7 @@
 
 
 
+from typing import Optional
 from fastapi import Header, HTTPException, Depends
 from sqlmodel import Session, select
 from app.database import get_session
@@ -11,13 +12,16 @@ from app.models.tenant import Tenant
 from app.core.context import set_current_tenant
 
 async def get_current_tenant(
-    x_tenant_id: int = Header(..., description="معرّف الشركة"),
+    x_tenant_id: Optional[int] = Header(None, description="معرّف الشركة"),
     session: Session = Depends(get_session)
 ) -> Tenant:
     """
-    احصل على الشركة الحالية من الـ header
-    كل request يحتاج X-Tenant-ID header
+    احصل على الشركة الحالية من الـ header.
+    إذا لم يُرسَل X-Tenant-ID، يستخدم الشركة الافتراضية رقم 1.
     """
+    if x_tenant_id is None:
+        x_tenant_id = 1
+
     tenant = session.exec(
         select(Tenant).where(Tenant.id == x_tenant_id)
     ).first()

@@ -13,7 +13,7 @@ from app.models.attendance import Attendance
 from app.services.helpers import clean_value, parse_date
 from app.services.headers import ATTENDANCE_hEADERS
 from app.services.imports.base_importer import BaseImporter
-from app.services.cleaners import clean_attendance_data  # ← إضافة
+from app.services.cleaners import clean_attendance_data
 
 class AttendanceImporter(BaseImporter):
     def run(self, session: Session, tenant, stream, commit: bool = True):
@@ -23,13 +23,13 @@ class AttendanceImporter(BaseImporter):
         try:
             # قراءة + تنظيف
             df = clean_attendance_data(stream)
-            # توحيد أسماء الأعمدة حسب الهيدر المخصص
             df.rename(columns={k: v for k, v in ATTENDANCE_hEADERS.items() if k in df.columns}, inplace=True)
 
             seen = set()
             for idx, row in df.iterrows():
                 name = clean_value(row.get("name"))
                 sdate = parse_date(row.get("date"))
+                status = clean_value(row.get("status")) or "حاضر"
 
                 if not name or not sdate:
                     report["rejected"] += 1
@@ -52,6 +52,8 @@ class AttendanceImporter(BaseImporter):
                 if not emp and legacy:
                     emp = session.exec(select(Employee).where(Employee.legacy_code == legacy)).first()
                 if not emp:
+                    emp = session.exec(select(Employee).where(Employee.name == name)).first()
+                if not emp:
                     report["rejected"] += 1
                     report["warnings"].append(f"صف #{idx}: الموظف غير موجود")
                     continue
@@ -69,7 +71,7 @@ class AttendanceImporter(BaseImporter):
                 att = Attendance(
                     employee_id=emp.id,
                     date=sdate,
-                    status=clean_value(row.get("status")),
+                    status=status,
                     shift=clean_value(row.get("shift"))
                 )
                 session.add(att)

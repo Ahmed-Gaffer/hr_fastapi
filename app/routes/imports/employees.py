@@ -7,6 +7,8 @@
 from fastapi import APIRouter, UploadFile, File, Depends, Query
 from sqlmodel import Session
 from app.database import get_session
+from app.dependencies.dependencies import get_current_tenant
+from app.models.tenant import Tenant
 from app.services.imports.employees import EmployeeImporter
 
 router = APIRouter()
@@ -16,7 +18,8 @@ async def employees_import(
     file: UploadFile = File(...),
     commit: bool = Query(False),
     allow_create_tenant: bool = Query(True),
-    session: Session = Depends(get_session)
+    session: Session = Depends(get_session),
+    tenant: Tenant = Depends(get_current_tenant),
 ):
     """
     استيراد موظفين من ملف Excel واحد.
@@ -28,6 +31,7 @@ async def employees_import(
         session=session,
         stream=stream,
         commit=commit,
-        allow_create_tenant=allow_create_tenant
+        allow_create_tenant=allow_create_tenant,
+        current_tenant=tenant,
     )
     return report
